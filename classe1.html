@@ -1,0 +1,480 @@
+<html>
+<head>
+  <title>Réseaux neuronaux | Classe 1</title>
+  <link href="../homeStyle.css" rel="stylesheet" type="text/css">
+  <!-- script to change the title if we are running inside a frameset -->
+  <script language="JavaScript">
+<!-- 
+     if (top != self) top.document.title = document.title;
+//-->
+  </script>
+  <meta http-equiv="Content-Type" content="text/html">
+</head>
+
+<body lang="fr">
+<h2>2.2 Initiation aux Réseaux Neuronaux</h2>
+
+<h3>2.2.1 L'histoire</h3>
+
+<p>Au début des 1960s, deux groupes de recherche:</p>
+
+<p></p>
+
+<p><em>a) La Communauté IA  traditionnelle (les systèmes
+symboliques):</em></p>
+
+<p><em>Caractéristiques Principales:</em></p>
+<ul>
+  <li>La résolution de problèmes, modelant des tâches spécifiques qui exigent
+    l'intelligence humaine. Par exemple, la démonstration automatique de
+    théorèmes mathématiques, les systèmes expert, les stratégies de jeux
+    (dames, échecs...)</li>
+  <li>La psychologie</li>
+  <li>Problèmes qui peuvent être décomposés dans une série des états</li>
+  <li>Des chercheurs: Alan Turing, John Von Neuman, Marvin Minsky...
+  beaucoup</li>
+  <li>Basé sur l'Architecture Von Neuman:</li>
+</ul>
+
+<p><img src="images/vonNeum.gif" alt="Von Neuman Ordinateur"></p>
+
+<p>L'ordinateur exécute le cycle suivant d'événements à maintes reprises:</p>
+<ol>
+  <li>prend une instruction de mémoire.</li>
+  <li>prend tout données exigé par l'instruction de mémoire.</li>
+  <li>exécute l'instruction (processus le données).</li>
+  <li>met résultats dans mémoire.</li>
+  <li>retourne en arrière en mesurer au pas 1).</li>
+</ol>
+
+<p>Problèmes:</p>
+<ul>
+  <li><em>Le problème doit être 'décomposable' dans une série de
+  pas</em>.</li>
+  <li>La machine doit être <em>programmé en avance</em> les séries exactes de
+    pas ont exigé pour exécuter l'algorithme.
+    <p><em>Nous ne devons pas donner une série exacte de pas à un bébé humain
+    pour fonctionner</em>. D'une façon ou d'une autre c'est capable
+    d'apprendre tout seul.</p>
+  </li>
+</ul>
+<ul>
+  <li>Le type de données de qu'il traite doit être dans un format précis -
+    <em>les données bruyant confond la machine</em>.
+    <p><em>Comment est-ce que nous reconnaissons caractères manuscrits, les
+    exemples particuliers de lequel, avant que nous n'avons jamais pu voir, ou
+    quelqu''un visage d'un angle nous n'avons jamais rencontré</em>?</p>
+  </li>
+</ul>
+<ul>
+  <li>Le matériel est dégradé facilement - détruisez quelques emplacements de
+    la mémoire de la clef et la machine cesseront de fonctionner ou 'Crash' -
+    <em>programme est fragile.</em>
+    <p><em>Le cerveau continue à fonctionner même quand endommagé. Pendant la
+    deuxième guerre mondiale, il y avait des soldats qui ont été tirés dans la
+    tête - ils ont perdu quelque mémoire mais pourraient fonctionner autrement
+    normalement</em></p>
+  </li>
+  <li>Il y a une correspondance claire entre les objets sémantiques qui sont
+    négociés avec (nombres, mots, etc des entrées de la base de données) et le
+    matériel de la machine. <em>Chaque objet correspond à une adresse exacte
+    dans un bloc de mémoire de l'ordinateur</em>.</li>
+</ul>
+
+<p>Le succès de l'approche symbolique dans IA dépend des conséquences des
+premier deux points qui suppose nous pouvons trouver un algorithme pour
+décrire la solution au problème. Il retourne ces grand nombre de tâches
+ordinaires pour que nous prenons accordées est difficile de formaliser dans ce
+chemin.</p>
+
+<p></p>
+
+<p><em>b) Les Cybernéticiens (les systèmes continus):</em></p>
+
+<p>Dans 1942 Norbert Weiner et ses collègues formulaient les idées qui ont été
+baptisées '<em>Cybernétiques</em>, et lequel il a défini comme '<em>Le
+contrôle et communication dans l'animal et le machine</em>'. Central à ce
+programme, comme la description suggère, est l'idée que les mécanismes
+biologiques peuvent être traités d'un génie et perspective du les
+mathématiques. D'importance centrale ici est l'idée de réaction
+(feedback).</p>
+
+<p><em>Caractéristiques Principales:</em></p>
+<ul>
+  <li>La reconnaissance des modèles (motifs, dessins)</li>
+  <li>Les systèmes qui peux apprendre</li>
+  <li>Les circuits analogiques</li>
+  <li>La neurobiologie</li>
+  <li>Les systèmes hautement parallèles</li>
+  <li>Des chercheurs: Norbert Weiner, Donald Hebb, Rosenblatt, McCulloch et
+    Pitts, Marvin Minsky</li>
+</ul>
+
+<p>Et puis, pendant les 1960s, la communauté IA s'est intéressé avec la vision
+et les systèmes qui peux apprendre - ça fait la rapport entre IA et la
+neurobiologie.</p>
+
+<p></p>
+
+<h3>2.2.2 La magie du cerveau humain</h3>
+
+<p>Les humains peuvent traiter beaucoup de types d'information plus rapidement
+que les machines. Par exemple, comprendre la langue parlée ou reconnaître des
+objets dans une scène visuelle - <em>ces opérations prennent quelques cent
+millisecondes </em>pour le cerveaux mais beaucoup plus pour un ordinateur - si
+même l'opération est possible!</p>
+
+<p>(<em>Discutez l'exemple de reconnaître des objets dans une image</em>)</p>
+
+<p>Mais, les unités de l'informatique de base du cerveau humain (neurones)
+ayez <em>une vitesse de l'informatique de base de quelques millisecondes</em>,
+beaucoup plus lente que les transistors dans un ordinateur moderne.
+<em>Comment est-ce que le cerveau est capable d'exécuter plus rapide avec les
+composants plus lents?</em></p>
+
+<p></p>
+
+<h3>Une petite biologie</h3>
+
+<p><img src="images/neuron.gif" alt="Neuron"></p>
+
+<p><em>Caractéristiques Principales:</em></p>
+<ul>
+  <li>N entrées (quelques synapes sur chaque dendrites) et une sortie
+  (l'axon)</li>
+  <li>La cellule donne un signal quand la somme des entrées dépasse une valeur
+    limite (le seuil ou 'threshold' en anglais)</li>
+  <li>Il y a quelques rapports (synapses) plus efficaces que les autres</li>
+  <li>Si un rapport (synapse) est fréquemment utilisé, il devient plus
+    effectif (la force du rapport augmente)</li>
+  <li>Le corps cellulaire principalement (soma) a une mémoire</li>
+</ul>
+
+<p>Les signaux sont transmis entre neurones par les pulsations électriques qui
+voyagent le long de l'axon. Ces pulsations s'heurtent sur le neurone afférent
+à terminaux appelé des synapses. Ceux-ci sont trouvés sur un ensemble de
+pousser des branches des processus qui émergent du corps cellulaire
+principalement (soma) connu comme dendrites.</p>
+
+<p>Chaque pulsation qui se produit à un initiés de la synapse la parution
+d'une petite quantité de substance chimique ou neurotransmetteur qui voyagent
+à travers le synaptic a fendu et lequel est reçu à récepteur de synaptic après
+alors place sur le dendritic mettez-vous de la synapse. Le neurotransmetteur
+est borné aux emplacements moléculaires ici lequel, dans tour, commence un
+changement dans la capacité de la membrane du dendritic. Cet potentiel
+après-synaptic (PAS, Post-Synaptic Potential ou PSP en anglais) le changement
+peut servir pour augmenter (hyperpolarisez) ou baisse (dépolarisez) la
+polarisation de la membrane de synaptic après. Dans le cas précédent, le PAS a
+tendance à inhiber génération de pulsations dans le neurone afférent, pendant
+que dans le dernier, il a tendance à exciter la génération de pulsations. La
+dimension et type de PAS produits dépendront des facteurs tel que la géométrie
+de la synapse et le type de neurotransmetteur.</p>
+
+<p>Chaque PAS voyagera le long de son dendrite et s'est étendu sur le soma, en
+arrivant à la base de l'axon finalement (axon petite colline). Le neurone
+afférent additionne ou intègre les effets de milliers de tel PASs sur son
+arbre du dendritic et avec le temps. Si la capacité intégrée à l'axon petite
+colline dépasse un seuil, le neurone produit une action potentiel ou pointe
+qui commence à voyager le long de son axon. Cela commence encore la séquence
+entière d'événements dans neurones contenus dans le chemin de l'efferent
+alors.</p>
+
+<p></p>
+
+<h3>2.2.3 Les neurones artificiels: le ULS (l'Unité de la Logique du Seuil ou
+Threshold Logic Unit en anglais)</h3>
+
+<p>Les renseignements traiter a exécuté dans ce chemin peut être résumé
+grossièrement comme suit: les signaux (action capacités) paraissez aux entrées
+de l'unité (synapses). L'effet (PAS) chaque signal a peut être se rapproché en
+multipliant le signal par quelque nombre ou peut être pesé pour indiquer la
+force de la synapse. Les signaux chargés d'un poids sont maintenant
+additionnés pour produire une activation de l'unité totale. Si cette
+activation dépasse un certain seuil l'unité produit un une réponse de la
+production. Ces fonctionnalités sont capturées dans le neurone artificiel
+connu comme l'Unité de la Logique du Seuil (ULS, Threshold Logic Unit ou TLU
+en anglais) originalement a proposé par McCulloch et Pitts [McCulloch et
+Pitts, 1943]:</p>
+
+<p><img src="images/TLU.gif" alt="Un neurone artificiel"></p>
+
+<p>Nous supposons il y a des entrées n avec les signaux <em>x1, x2, ...,
+xn</em> and poids <em>w1, w2, ..., wn</em>. Les signaux prennent les valeurs
+'1' ou '0' seulement. <em>(Cela autorise leur relation à circuits de la
+logique numériques être discuté).</em> L'activation,<em> a</em>, est donné
+par:</p>
+
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>a</mi>
+  <mo>=</mo>
+  <msub>
+    <mi>x</mi>
+    <mn>1</mn>
+  </msub>
+  <msub>
+    <mi>w</mi>
+    <mn>1</mn>
+  </msub>
+  <mo></mo>
+  <mo>+</mo>
+  <mo></mo>
+  <msub>
+    <mi>x</mi>
+    <mn>2</mn>
+  </msub>
+  <msub>
+    <mi>w</mi>
+    <mn>2</mn>
+  </msub>
+  <mo></mo>
+  <mo>+</mo>
+  <mo>.</mo>
+  <mo>.</mo>
+  <mo>.</mo>
+  <mi></mi>
+  <mo>+</mo>
+  <mi></mi>
+  <msub>
+    <mi>x</mi>
+    <mi>n</mi>
+  </msub>
+  <msub>
+    <mi>w</mi>
+    <mi>n</mi>
+  </msub>
+</math>
+</p>
+
+<p>ou</p>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>a</mi>
+  <mo>=</mo>
+  <munderover>
+    <mrow>
+      <mo>&sum;</mo>
+      <mtext></mtext>
+      <mi></mi>
+      <msub>
+        <mi>x</mi>
+        <mi>i</mi>
+      </msub>
+      <msub>
+        <mi>w</mi>
+        <mi>i</mi>
+      </msub>
+    </mrow>
+    <mrow>
+      <mi>i</mi>
+      <mo>=</mo>
+      <mn>1</mn>
+    </mrow>
+    <mi>n</mi>
+  </munderover>
+</math>
+
+
+<p>La production <em>y</em> est donné par le seuil d'activation alors:</p>
+
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>y</mi>
+  <mo>=</mo>
+  <mn>1</mn>
+  <mi>si a</mi>
+  <mo></mo>
+  <mo>>=</mo>
+  <mo></mo>
+  <mi>&theta;</mi>
+  <mo>,</mo>
+  <mi>y</mi>
+  <mo>=</mo>
+  <mi></mi>
+  <mn>0</mn>
+  <mtext></mtext>
+  <mi>si a</mi>
+  <mo>&lt;</mo>
+  <mi>&theta;</mi>
+</math>
+</p>
+
+<p>Le seuil (threshold en anglais), 
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>&theta;</mi>
+</math>
+, est souvent zéro. La fonction du seuil est appelée une pas fonction ou
+limiteur dur pour les raisons évidentes quelquefois. Si nous sommes pousser
+l'analogie avec les vrais neurones, la présence d'une action capacité est
+dénotée par binaire '1' et son absence par binaire '0'.</p>
+
+<p><em>Importante:</em></p>
+
+<p><em>Ou reste les donnees dans ce modèle? </em>- dans les poids et avec le
+seuil.</p>
+
+<p>Aussi, remarquez qu'il n'y a aucune mention de temps si loin - l'unité
+répond au sien entré instantanément alors que les vrais neurones intègrent
+avec le temps aussi bien qu'espace; comme ce peut être à ceci peut être
+remédié sera discuté plus tard.</p>
+
+<p></p>
+
+<h3>2.2.4 Un petit réseau neuronaux</h3>
+
+<p>La définition:</p>
+
+<p><em>Un Réseau Neuronaux est une assemblée communiquant d'éléments du
+traitement simples, unités ou noeuds dont les fonctionnalités sont basées
+vaguement sur le neurone animal. La capacité du traitement du réseau est
+entreposée dans l'enterrez des unité rapport forces, ou poids, obtenus par un
+processus d'adaptation à, ou apprendre de, un ensemble de former des
+modèles.</em></p>
+
+<p>En anglais:</p>
+
+<p><em>A Neural Network is an interconnected assembly of simple processing
+elements, units or nodes, whose functionality is loosely based on the animal
+neuron. The processing ability of the network is stored in the inter-unit
+connection strengths, or weights, obtained by a process of adaptation to, or
+learning from, a set of training patterns.</em></p>
+
+<h3>Un exemple simple: un réseau pour représenter le fonction logique AND</h3>
+
+<table border="1">
+  <tbody>
+    <tr>
+      <td>x<sub>1</sub></td>
+      <td>x<sub>2</sub></td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Nous pouvons représenter cette fonction comme graphiquement:</p>
+
+<p><img src="images/ANDFunc.JPG" alt="AND fonction"></p>
+
+<p>Nous allons utiliser un réseaux avec un seul neurone (perceptron) et avec
+deux entrées:</p>
+
+<p><img src="images/ANDPerceptron.JPG" alt="AND Perceptron"></p>
+
+<p><em>Une procédure simple pour former le réseau:</em></p>
+<ul>
+  <li>Choisissez un seuil et commencez avec les petits poids aléatoires</li>
+  <li>Appliquez un vecteur de l'entrée au réseau, calculez la production</li>
+  <li>Si la production n'est pas ce que nous voulons, calcule l'erreur et
+    utilise ceci ajuster les poids tel que l'erreur est réduite</li>
+  <li>Répétez la procédure de la formation avec les autres vecteurs de
+    l'entrée</li>
+</ul>
+
+<p>Par exemple:</p>
+
+<table border="1">
+  <col><tbody>
+    <tr>
+      <td>x<sub>1</sub></td>
+      <td>x<sub>2</sub></td>
+      <td>w<sub>1</sub></td>
+      <td>w<sub>2</sub></td>
+      <td>a</td>
+      <td>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <mi>&theta;</mi>
+        </math>
+      </td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>0.3</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0.1</td>
+      <td>0.3</td>
+      <td>0.3</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>0.3</td>
+      <td>0.1</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0.1</td>
+      <td>0.3</td>
+      <td>0.4</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td><em>0.4</em></td>
+      <td><em>0.6</em></td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Très importante:</em></p>
+
+<p><em>Nous pouvons écrire un algorithme tel que le réseau apprend par
+lui-même!</em> (Common? En adaptant les poids dans le réseau)</p>
+
+<p></p>
+
+<p>Donné assez d'unités et pouvoir du traitement suffisant, les réseaux
+neuronaux peuvent être construire pour modeler des fonctions très complexes
+(ou pour reconnaître des modèles) - l'armée des États-Unis a développé des
+réseaux neurones pour reconnaître les chars en brousse (comme d'habitude, la
+majorité d'argent de la recherche est dirigée vers candidatures militaires -
+mais souvenez-vous où l'Internet est né!). Beaucoup de candidatures tel que le
+traitement des images médical.</p>
+
+<p>La prochaine classe - <a href="classe2.html">Les Réseaux multi-couche et la
+rétro-propagation</a></p>
+
+<p></p>
+
+<p><em>préparé février 2001 par David Croft</em></p>
+</body>
+</html>

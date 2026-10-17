@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Réseaux neuronaux | Travaux Practique</title>
+  <link href="../homeStyle.css" rel="stylesheet" type="text/css">
+  <!-- script to change the title if we are running inside a frameset -->
+  <script language="JavaScript">
+<!-- 
+     if (top != self) top.document.title = document.title;
+//-->
+  </script>
+  <meta http-equiv="Content-Type" content="text/html">
+</head>
+
+<body lang="fr">
+<h2>Travaux Practique - Lettres d'espace</h2>
+
+<p>Incité par propagande affichée autour de l'ESI, Professeur Manso a été
+fasciné avec la possibilité de la vie extra-terrestre. En outre, une nuit
+quand il revenait de Nasso, il a observé un groupe de lumières dans le ciel
+cela ressemble un peu comme une lettre 'A'. Professeur Manso recomptages que
+ce groupe de lumières a regardé quelque chose comme:</p>
+
+<p><img src="images/lettreDespace.jpg" alt="Lettre d'espace"></p>
+
+<p>Malheureusement, Professeur Manso est trop occupé avec la preperation des
+cours pour passer la nuit à regarder les étoiles. Utiliser son esprit
+technique, il a préparé un appareil-video pour enregistrer la région d'espace
+où il a vu les lumières qui ont ressemblé comme une lettre.</p>
+
+<p>Hélas, l'appareil-photo de la vidéo présente un dilemna intéressant: bien
+qu'il enregistre le nuit ciel efficacement, il prend de même que long regarder
+la vidéo comme il fait pour passer la nuit qui regarde pour les signaux
+d'espace. Une vidéo d'une nuit peut contenir millions de cadres, et il prend
+trop long à inspecter chaque cadre manuellement pour voir s'il y a un modèle
+de lumières qui  ressemblent à une lettre.</p>
+
+<p>Professeur Manso a besoin de l'aide de ses étudiants talentueux. Utiliser
+votre connaissance des réseaux neuronaux mulit-couche, c'est possible de créer
+un réseau qui parcourt à travers tous les cadres d'une vidéo et cherche une
+lettre spécifique. En travaillant ensemble, vous devriez être capables de
+créer et former un réseau neuronaux pour chaque lettre, et alors le réseau
+peut traverser la vidéo en cherchant la lettre pour laquelle le réseau a été
+formé. Si des lettres sont trouvées, peut-être - et c'est le grand espoir de
+Professeur Manso - les lettres de chaque groupe peuvent être combinés pour
+nous fournir quelque sagesse de l'espace externe.</p>
+
+<p></p>
+
+<h3>Les directives pour compléter le projet</h3>
+
+<p>La classe sera divisée en groupes de 2, chaque groupe sera assigné essayer
+2 lettres pour chercher dans la séries des cadres dans la video de Prof.
+Manso. (Voyez au-dessous pour les Groupes et lettres assignées)</p>
+
+<p>Chaque groupe aura besoin d'installer un Environnement de Java sur
+l'ordinateur ils travailleront. Vous avez besoin de "Map a network drive"
+à:</p>
+
+<p><span style="font-family: courier">\\KONSA\public</span></p>
+
+<p>(Pour cet exemple nous allons imaginer que nous avons dressé le chemin
+"\\KONSA\public" à "d:\")</p>
+
+<p></p>
+
+<p>Ajoutez les lignes suivant à la fichier c:\autoexec.bat:</p>
+
+<p style="font-family: courier">set PATH=%PATH%;d:\Java\jdk\bin</p>
+
+<p style="font-family: courier">set
+CLASSPATH=%CLASSPATH%;d:\reseauxNeuronaux\code</p>
+
+<p>("set PATH..." vous autorise à utiliser les programmes java.exe et
+javac.exe, "set CLASSPATH..." est exigé pour Java pour lire les bibliothèques
+préparé pour ce projet)</p>
+
+<p></p>
+
+<p>Créez un répertoire où vous travaillerez sur votre projet. Copiez la
+fichier "video.dat" du chemin:</p>
+
+<p><span
+style="font-family: courier">\\KONSA\public\reseauxNeuronaux\code\esi\lettresdespace\video.dat</span></p>
+
+<p>dans votre répertoire. Cette fichier contient la video que Professeur Manso
+a enregistré.</p>
+
+<p></p>
+
+<p>Suivant, nous allons écrire (avec un éditeur de votre choix), compile
+(javac TestApp.java) et exécute (java TestApp) le programme suivant:</p>
+
+<p>// TestApp.java</p>
+<pre>import esi.lettresdespace.*;  
+
+public class TestApp {
+  public static void main(String args[]) {
+
+    // Charge la video
+    Video video = Video.charge("video.dat");
+
+    // Cree un lecteur pour afficher la video 
+    VideoLecteur lecteur = new VideoLecteurGraphique();
+
+    int numCadres = video.getSize();
+
+    // Passe tous les cadres dans le video 
+    // (ca va prend trop de temps, type Ctrl-C a sortir)
+    for (int i=0; i &lt; numCadres; i++) {
+      System.out.println("Affiche le cadre a index: " + i +
+        " / " + numCadres);
+      Cadre next = video.getCadreAt(i);
+
+      // Affiche le cadre et attend reponse de l'utilisateur
+      boolean reponse = lecteur.confirmCadre(next);
+      if (reponse == true) {
+        System.out.println("Je vais accepter ce cadre comme " +
+          "la lettre lequel nous cherchons");
+      }
+    }
+  System.exit(0);
+  }
+}</pre>
+
+<p>Clairement, il ne vaut pas l'effort d'envisager chaque cadre manuellement
+pour chercher un message d'espace. Nous aimerions créer un réseau neuronaux
+qui peut traverser tous les cadres dans la video pour chercher une lettre
+spécifiée.</p>
+
+<p>Vous aurez besoin de faire des enchantillons de vos lettres pour le former
+le réseau. Dans le dossier:</p>
+
+<p><span
+style="font-family: courier">\\KONSA\public\reseauxNeuronaux\code\esi\lettresdespace\fichiers</span></p>
+
+<p>Vous allez trouver trois fichiers: une est la grande liste avec un
+énchantillon pour chaque lettre ("toutesLettres.dat"), et les autres deux sont
+pour former un reseau qui peux reconnaitre la lettre A: "lettreA.dat" contient
+les énchantillons positifs, et "toutesLettresSansA.dat" contient les autres
+lettres que nous utilisons comme les énchantillons negatifs quand nous formons
+le reseau.</p>
+
+<p>Il faut que vous faisez quatre fichiers dans votre répertoire: deux avec
+5-10 énchantillons pour chaque lettre lequel vous cherchez, et les autres deux
+avec une énchantillons negatif pour tous les autres lettre que vous ne
+cherchez pas. Par example, si vous cherchez les lettres B et Z, vous créerez
+une fichier qui s'appelle "lettreB.dat" avec 5-10 énchantillons de la lettre
+B, et une autre fichier qui s'appelle "lettreZ.dat" avec 5-10 énchantillons de
+la lettre Z. Maintenant, pour la lettre B, il faut creer une fichier avec un
+exemple pour toutes les autres exceptent B - copie "toutesLettres.dat" à
+"toutesLettresSansB.dat" et enleve l'énchantillon de la lettre B. Faisez la
+même chose pour la lettre Z pour créer "toutesLettresSansZ.dat".</p>
+
+<p><em>Remarquez:</em></p>
+
+<p>Il y a quelques lettres qui sont semblable dans apparence. Par exemple, la
+lettre I est semblable à lettre J. Si vous cherchez la lettre I, ce sera utile
+à ajouter quelque exemple négatif supplémentaire pour J quand vous formez le
+reseau. C'est facile de faire - seulement ajoutez un ou deux plus
+d'échantillons de la lettre J à la fichier "toutesLettresSansI.dat".</p>
+
+<p>Des autres lettres qui sont semblable:</p>
+
+<p>P,R</p>
+
+<p>O,Q</p>
+
+<p>I,J,T,!</p>
+
+<p>E,F</p>
+
+<p>U,V</p>
+
+<p>(C'est possible que vous puissiez penser à quelques-uns autres).</p>
+
+<p>À ce point, nous avons créé tous les fichiers que nous aurons besoin
+d'écrire notre programme.</p>
+
+<p></p>
+
+<h3>Stratégie de base pour écrire le programme</h3>
+<ol>
+  <li>Cette section essaie de vous donner une idée de base ce qui est exigé
+    pour écrire un programme qui travers la vidéo et trouve les indexes pour
+    une de vos lettres. Pour les détails techniques (quelles fonctionnes pour
+    appeler etc. . ) vous devez lire la documentation de l'API (voyez la
+    section des Ressources au-dessous).</li>
+  <li>Chargez la video de la fichier que vous avez copié dans votre
+    répertoire.</li>
+  <li>Créez un reseau - la dimension de la couche de l'entrée sera 8x8=64, et
+    la dimension pour la couche de la sortie sera 1. Vous pouvez decider
+    combien des couche intermediares et combien des noeuds - si il n'y a pas
+    assez de noeuds, le réseau ne sera pas capable de distinguer votre lettre.
+    Si il y a trop de couches et noeuds, il prendra trop de temp pour former
+    le réseau et c'est possible que le réseau ne soit pas capable de
+    généraliser des entrées bruyantes.</li>
+  <li>Chargez les énchantillons positifs et ajoute ces cadres à un vecteur
+    pour les entrées (par exemple, de "lettreA.dat")</li>
+  <li>Chargez les énchantillons negatifs et ajoute ces cadres au vecteur pour
+    les entrées (par exemple, de "toutesLettresSansA.dat")</li>
+  <li>Créez un vecteur avec les sorties où chaque sortie correspond au vecteur
+    nous voulons le réseau à produire pour chaque échantillon de l'entrée
+    (chaque sortie sera un vecteur avec une dimension d'une si il y a un
+    noeuds dans la couche de la sortie). Par exemple (si nous formons le
+    réseau pour la lettre A) - pour chaque échantillon qui répresente la
+    lettre A, nous voulons avoir un vecteur correspondant pour la sortie avec
+    1.0. Pour toutes les autres énchantillons, nous voulons créer un vecteur
+    avec 0.0.</li>
+  <li>Formez le réseau - remarque que cela peut prendre milliers d'itérations
+    (peut-être même dizaines de milliers).</li>
+  <li>Créez un lecteur pour regarder les cadres dans la video</li>
+  <li>Répète à travers la vidéo, en utilisant le réseau compétent pour tester
+    si chaque cadre ressemble à la lettre pour que nous cherchons</li>
+  <li>Si le réseau pense qu'un cadre ressemble à notre lettre, affichez la
+    lettre, et si c'est une de nos lettres en fait, enregistrez l'index à
+    qu'il se produit dans la vidéo.</li>
+  <li>Créez une liste avec tous les index pour la lettre.</li>
+</ol>
+
+<p></p>
+
+<p></p>
+
+<h3>Ressources</h3>
+
+<p>Initiation aux Réseaux Neuronaux index (HTML pour toutes les classes est
+ici): <a href="index.html">index.html</a></p>
+
+<p>Java classes utilisé pour le projet:</p>
+<ul>
+  <li>esi.lettresdespace:
+    \\KONSA\public\reseauxNeuronaux\code\esi\lettresdespace\*.java</li>
+  <li>esi.reseauxneuronaux:
+    \\KONSA\public\reseauxNeuronaux\code\esi\reseauxneuronaux\*.java</li>
+  <li>esi.outils: \\KONSA\public\reseauxNeuronaux\code\esi\outils\*.java</li>
+</ul>
+
+<p>Remarquez: pour utiliser une classe d'une de ces packages dans votre
+programme, il faut "import" le package. Par exemple, pour utiliser la classe
+Cadre, ecrivez (au debut de votre programme):</p>
+
+<p><span style="font-family: courier">import
+esi.lettresdespace.Cadre;</span></p>
+
+<p>pour utiliser toutes les classes dans un package, ecrivez:</p>
+
+<p><span style="font-family: courier">import esi.lettresdespace.*;</span></p>
+
+<p>La documentation pour toutes ces classes est à:</p>
+
+<p><a href="api/overview-summary.html"><span
+style="font-family: courier">reseauxNeuronaux\api\overview-summary.html</span></a></p>
+
+<p>La documentation pour les autres bibiothèques JAVA est à:</p>
+
+<p><span
+style="font-family: courier">\\KANSO\public\Java\jdk\docs\api\index.html</span></p>
+
+<p></p>
+
+<h3>Les exigences</h3>
+
+<p>Ensemble, la classe a besoin de réunir les lettres (si en) voir s'il y a un
+message d'espace</p>
+
+<p>(Chaque groupe a besoin de contribuer la séquence à qu'ils ont trouvé leurs
+lettres)</p>
+
+<p>Email/Print le programme que vous avez ecrit pour chercher vos lettres.</p>
+
+<p></p>
+
+<h3>Les Groupes</h3>
+
+<p>26-3+4 = 27 lettres (Toutes lettres majiscules sans A, J, et Y, + '_' + '''
++ ',' + '!')</p>
+
+<p>E310 - _,B</p>
+
+<p>E311 - C,D</p>
+
+<p>E312 - E,F</p>
+
+<p>E313 - G,H</p>
+
+<p>E314 - I,!</p>
+
+<p>E315 - K,L</p>
+
+<p>E316 - M,N</p>
+
+<p>E317 - O,P</p>
+
+<p>E318 - Q,R</p>
+
+<p>E320 - S,T</p>
+
+<p>E321 - U,V</p>
+
+<p>E322 - W,X</p>
+
+<p>E323 - _,Z</p>
+
+<p>E324 - U,'</p>
+
+<p>E325 - V,_</p>
+
+<p>E326 - T,!</p>
+
+<p>E327 - M,'</p>
+
+<p>E328 - I,Z</p>
+
+<p>Remarquez: la lettre A est ma contribution - il a lieu dix fois dans la
+video. Les index sont: </p>
+
+<p>A= {1635, 3433, 7824, 8212, 8777, 12933, 15561, 16709, 17840, 19505}</p>
+
+<p></p>
+
+<h3>Un Challenge</h3>
+
+<p>Après que chaque groupe ait trouvé les index pour chacun de leurs lettres,
+c'est nécessaire d'arranger les lettres pour former le message. C'est possible
+de faire ceci à la main, cependant c'est beaucoup plus intéressant (et plus
+vite!) pour arranger les lettres avec un programme simple. Ici est l'idée de
+base pour le programme:</p>
+
+<p>Créez un class pour entreposer le char de la lettre et l'index. Par
+example:</p>
+
+<p>class LettreDeLaMessage {</p>
+
+<p>char lettre;</p>
+
+<p>int index;</p>
+
+<p>}</p>
+
+<p>Si tous les groupes ont fait leur travail, vous devriez avoir une liste des
+index pour chaque lettre. (eg. A=</p>
+
+<p>Pour chaque lettre, créez une liste des LettreDeLaMessage - un object pour
+chaque index.</p>
+
+<p>Mettez toutes les object (LettreDeLaMessages) ensemble dans un Vector, et
+les sortez utiliser la valeur de l'index.</p>
+
+<p>Finalement, traversez le vecteur assorti et imprimez l'ombre pour chaque
+objet LettreDeLaMessage</p>
+</body>
+</html>

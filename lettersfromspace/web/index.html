@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Letters from Space</title>
+  <meta name="description" content="Train a small neural-network model for each letter to find a message hidden in 20,000 frames of night sky.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' rx='1' fill='%23080000'/%3E%3Cpath fill='%23cc9933' d='M3 0h2v1H3zM2 1h1v1H2zM5 1h1v1H5zM1 2h1v1H1zM6 2h1v1H6zM0 3h8v1H0zM0 4h1v4H0zM7 4h1v4H7z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <!-- Visitor counter on a static host (GitHub Pages): the name NAMESPACE/KEY of a counter at Abacus
+       (https://abacus.jasoncameron.dev: free, no account), for example r2do.com/lettersfromspace;
+       build_site.sh --counter abacus fills it in. Left empty, the counter shows only when the page is
+       served by the lab's own Java server. -->
+  <meta name="lfs-abacus" content="">
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="counter hidden" id="visit-counter">
+      <span class="counter-label">You are visitor</span>
+      <span class="digits" id="visit-digits" aria-hidden="true"></span>
+      <span class="visually-hidden" id="visit-text"></span>
+    </div>
+  </div>
+
+  <header class="masthead">
+    <div class="masthead-main">
+    <div class="masthead-photo"><img src="images/maliLandscape.jpg" width="200" height="526" alt="At the watering hole: cattle and herders at the water under an orange sky"></div>
+    <div>
+      <h1>Letters from Space</h1>
+      <p class="subtitle">A hands-on lab about how a neural network learns. Professor Manso's camera filmed 20,000 frames of night
+        sky, and a message is hidden in them, one letter at a time.</p>
+      <p class="subtitle">Train a small model for each letter (a neural network, trained with back-propagation) and watch what it
+        learns, from the examples it is shown to the weights of each hidden unit. Then let each model search the whole video, check
+        what it finds, and read the message. Along the way: what makes good training data, why being right on the examples is not
+        enough, and how sure a model must be before you believe it.</p>
+      <section class="story" aria-labelledby="story-title">
+        <h2 id="story-title">The story <span class="story-source">from the
+          <a href="https://zooid.org/~tforcdivad/reseauxNeuronaux/travauxPractique.html" lang="fr">2001 practical</a> at ESI, Bobo-Dioulasso</span></h2>
+        <p>Inspired by the posters around ESI, Professor Manso became fascinated by the possibility of life beyond Earth. One night,
+          driving back from Nasso, he saw a group of lights in the sky that looked a little like the letter A.</p>
+        <p>He is far too busy preparing his lectures to spend his nights watching the stars, so he pointed a video camera at that
+          part of the sky. Unfortunately, watching the video takes as long as watching the sky: one night holds thousands of frames,
+          far too many to inspect by hand.</p>
+        <p>Using what you know about multi-layer neural networks, you can build a network that runs through every frame of the video
+          looking for one particular letter. Working together, with one network per letter, the class can put the letters back in
+          order and, Professor Manso hopes, receive some wisdom from outer space.</p>
+      </section>
+    </div>
+    </div>
+    <div class="chips">
+      <span class="chip" id="chip-server"><span class="dot"></span><span>connecting…</span></span>
+      <span class="chip" id="chip-trained"><span>0 detectors trained</span></span>
+    </div>
+  </header>
+
+  <nav class="steps" aria-label="Lab steps">
+    <a href="#data">1 Training data</a>
+    <a href="#network">2 Back-propagation</a>
+    <a href="#scan">3 Scan the video</a>
+    <a href="#message">4 Message from space</a>
+    <span class="spacer"></span>
+    <span class="current-letter">Current letter <b id="nav-letter">A</b></span>
+  </nav>
+
+  <!-- ============================================================ 1. training data -->
+  <section class="panel" id="data" aria-labelledby="data-title">
+    <div class="panel-head"><span class="step">1</span><h2 id="data-title">Training data</h2></div>
+    <p class="lede">A detector learns from examples: <b>positives</b> that are the letter, and <b>negatives</b> that are not.
+      Pick a letter, look at the examples the model will learn from, and change how they are made.</p>
+
+    <div class="letter-grid" id="letter-grid" role="group" aria-label="Choose a letter"></div>
+
+    <div class="fields" id="set-fields">
+      <label class="field"><span>Noisy copies per letter</span><input type="number" id="f-variants" min="0" max="100" step="1"></label>
+      <label class="field"><span>Noise (% of pixels)</span><input type="number" id="f-noise" min="0" max="50" step="1"></label>
+      <label class="field"><span>Empty-sky negatives</span><input type="number" id="f-sky" min="0" max="1000" step="10"></label>
+      <label class="field"><span>Random seed</span><input type="number" id="f-seed" min="0" step="1"></label>
+      <label class="field check"><input type="checkbox" id="f-fresh"><span>New noise every epoch</span></label>
+      <button type="button" id="btn-simulate">Simulate filling in</button>
+      <button type="button" class="link" id="btn-defaults-set">Default settings</button>
+    </div>
+    <p class="help">The video's letters have 1 to 4 flipped pixels, so the positives get noisy copies of the letter's samples
+      (every letter gets the same number of copies). About 98% of the video is empty sky with random stars; the <b>empty-sky
+      negatives</b> show the model what "nothing" looks like: the 2001 class trained with letters only. With <b>new noise every
+      epoch</b>, the noisy copies and the sky are drawn again before every pass, so the model cannot memorise a few examples;
+      the frames below are those of the first epoch.</p>
+
+    <div class="cols-2" style="margin-top:14px">
+      <div>
+        <h3 id="pos-title">Positives</h3>
+        <div class="frames" id="pos-frames" aria-labelledby="pos-title"></div>
+      </div>
+      <div>
+        <h3 id="neg-title">Negatives</h3>
+        <div class="group-label" id="neg-letters-label">Other letters</div>
+        <div class="frames" id="neg-letter-frames"></div>
+        <div class="group-label" id="neg-sky-label">Empty sky</div>
+        <div class="frames" id="neg-sky-frames"></div>
+      </div>
+    </div>
+
+    <details id="datfile-details" style="margin-top:14px">
+      <summary>Show the positives as a <span class="mono">.dat</span> file</summary>
+      <pre class="datfile" id="datfile"></pre>
+    </details>
+
+    <div class="sub">
+      <h3>Draw your own sample</h3>
+      <p class="help" style="margin-top:0">In 2001 every group drew 5 to 10 samples of its letters by hand. Click or drag to draw, then add
+        the drawing to the samples of the current letter. Your samples stay in the server's memory until it stops.</p>
+      <div class="row">
+        <div class="editor" id="draw-editor" role="group" aria-label="8 by 8 drawing grid"></div>
+        <div class="editor-tools">
+          <button type="button" class="primary" id="btn-add-sample">Add to the samples of A</button>
+          <button type="button" id="btn-draw-master">Start from the master glyph</button>
+          <button type="button" id="btn-draw-clear">Clear the grid</button>
+          <button type="button" id="btn-clear-samples">Remove my samples of A</button>
+          <span class="small muted" id="user-sample-count"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 2. network -->
+  <section class="panel" id="network" aria-labelledby="net-title">
+    <div class="panel-head"><span class="step">2</span><h2 id="net-title">The model and back-propagation</h2></div>
+    <p class="lede">One model per letter, a detector that answers a single question: is this frame the letter? Each model is a
+      small neural network with 64 inputs (one per pixel), a hidden layer, and a single output unit that should say 1.0 for the
+      letter and 0.0 for anything else. Back-propagation shows it every example, measures the error and nudges every
+      weight to make the error smaller, epoch after epoch.</p>
+
+    <div class="row">
+      <div class="grow">
+        <div class="fields">
+          <label class="field"><span>Hidden units</span><input type="number" id="f-hidden" min="1" max="256" step="1"></label>
+          <label class="field"><span>Learning rate</span><input type="number" id="f-lr" min="0" max="10" step="0.05"></label>
+          <label class="field"><span>Momentum</span><input type="number" id="f-momentum" min="0" max="0.99" step="0.05"></label>
+          <label class="field"><span>Max epochs</span><input type="number" id="f-epochs" min="1" max="200000" step="1000"></label>
+          <label class="field"><span>Stop when error &lt;</span><input type="number" id="f-errthr" min="0" step="0.005"></label>
+          <label class="field check"><input type="checkbox" id="f-bias"><span>Bias node</span></label>
+        </div>
+        <div class="row center" style="margin-top:14px">
+          <button type="button" class="primary" id="btn-train">Run back-propagation for D</button>
+          <span id="train-status" class="small ink-2" aria-live="polite"></span>
+        </div>
+        <p class="help">The 2001 settings: 16 hidden units, learning rate 0.2, momentum 0.9, stop when the epoch error (the sum over all
+          examples of ½·(target − output)²) falls below 0.01. Weights start as small random numbers between 0 and 0.2. A run that
+          gets stuck without reaching that error starts again from new random weights (up to 3 runs).</p>
+      </div>
+    </div>
+
+    <figure class="chart network-figure" id="net-figure">
+      <figcaption>
+        <span class="chart-title" id="net-figure-title">Inside the network</span>
+        <span class="legend">
+          <span class="key"><span class="line" style="background: var(--pole-pos)"></span>positive weight</span>
+          <span class="key"><span class="line" style="background: var(--pole-neg)"></span>negative weight</span>
+          <span class="key">thicker line = larger weight</span>
+        </span>
+      </figcaption>
+      <svg class="network" id="net-diagram" role="img" aria-label="Network diagram"></svg>
+      <div class="anim-controls">
+        <button type="button" id="anim-play" disabled>▶ Watch it learn (10 s)</button>
+        <input type="range" id="anim-pos" min="0" max="1000" value="1000" disabled aria-label="Moment of the training shown">
+        <span class="small ink-2 num" id="anim-readout">Run back-propagation to watch the weights change.</span>
+      </div>
+      <p class="help">Before training the diagram shows the network's starting weights: small random numbers between 0 and 0.2,
+        drawn from the seed in step 1, so that the hidden units start out different from each other. With all of them positive,
+        the untrained network answers between 0.7 and 0.8 for every frame, even empty sky: it still has to learn to say no.
+        After back-propagation the diagram replays the training from these weights (or from new ones, if a stuck run was
+        restarted). Every connection is coloured by its weight. The boxes
+        on the right are the weights from each hidden unit to the output; the boxes on the left are the weights from one input pixel
+        (ringed): click another pixel of the letter to follow its weights. Each hidden unit fills with its activation when the network
+        sees the letter, and the output shows the network's answer. The replay hurries through the long flat stretch of the error
+        curve and slows down where the error falls; the epoch counter is the real one.</p>
+    </figure>
+
+    <div id="train-result" class="hidden">
+      <div class="stats" id="train-stats"></div>
+
+      <figure class="chart" id="curve-figure">
+        <figcaption>
+          <span class="chart-title" id="curve-title">Error after each epoch</span>
+          <span class="legend" id="curve-legend"></span>
+        </figcaption>
+        <svg class="plot" id="curve" height="240" role="img" aria-label="Training error per epoch, logarithmic scale"></svg>
+        <button type="button" class="link table-toggle" id="curve-table-toggle">Show as a table</button>
+        <div class="table-scroll hidden" id="curve-table"></div>
+      </figure>
+
+      <div class="sub after-replay">
+        <div class="row center" style="justify-content:space-between">
+          <h3>What the hidden units learned</h3>
+          <div class="scale-legend" id="weights-legend"></div>
+        </div>
+        <p class="help" style="margin-top:2px">Each square is one hidden unit: its 64 incoming weights drawn as the 8×8 frame.
+          Orange pixels push the unit on, blue pixels push it off. Under each square, the weight from that unit to the output.
+          Click a unit to see its numbers.</p>
+        <div class="weights" id="weights"></div>
+        <div id="unit-table"></div>
+      </div>
+
+      <div class="sub after-replay" id="fit-block">
+        <h3>How it answers its own training examples</h3>
+        <p class="help" style="margin-top:2px">Scores after training, shown under the examples in step 1. A red ring marks an example
+          on the wrong side of 0.5.</p>
+        <p id="fit-summary"></p>
+      </div>
+    </div>
+
+    <div class="sub">
+      <h3>Test a frame</h3>
+      <div class="row">
+        <div class="editor" id="test-editor" role="group" aria-label="8 by 8 test grid"></div>
+        <div class="editor-tools">
+          <button type="button" id="btn-test-master">Master glyph</button>
+          <button type="button" id="btn-test-noise">Add noise</button>
+          <button type="button" id="btn-test-video">Random video frame</button>
+          <button type="button" id="btn-test-clear">Clear</button>
+        </div>
+        <div class="grow">
+          <div class="small ink-2" id="test-label">Output of the D detector</div>
+          <div class="big-score num" id="test-score">–</div>
+          <div class="meter" aria-hidden="true">
+            <div class="track"><div class="fill" id="test-fill"></div><div class="thr" id="test-thr"></div></div>
+            <div class="ends"><span>0 · not the letter</span><span>1 · the letter</span></div>
+          </div>
+          <p class="verdict" id="test-verdict">Train a detector first, then draw here: the score updates as you draw.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 3. scan -->
+  <section class="panel" id="scan" aria-labelledby="scan-title">
+    <div class="panel-head"><span class="step">3</span><h2 id="scan-title">Scan the video</h2></div>
+    <p class="lede">The trained detector looks at all 20,000 frames. Every frame whose score reaches the threshold is a candidate.
+      In 2001 the program showed each candidate and the student answered <span class="mono">o</span>/<span class="mono">n</span>
+      (oui/non): untick the frames that are not really the letter.</p>
+
+    <div class="row center">
+      <div class="slider-field">
+        <label for="f-threshold">Threshold</label>
+        <input type="range" id="f-threshold" min="0.5" max="0.99" step="0.01">
+        <output id="threshold-out" for="f-threshold"></output>
+      </div>
+      <button type="button" class="primary" id="btn-scan">Scan 20,000 frames for D</button>
+      <span id="scan-status" class="small ink-2" aria-live="polite"></span>
+    </div>
+
+    <div id="scan-result" class="hidden">
+      <figure class="chart">
+        <figcaption><span class="chart-title" id="scan-strip-title">Where the candidates are in the video</span></figcaption>
+        <svg class="plot" id="scan-strip" height="58" role="img" aria-label="Candidate frames along the video"></svg>
+      </figure>
+      <div class="hits" id="hits"></div>
+    </div>
+
+    <div class="sub">
+      <h3>Watch the video</h3>
+      <p class="help" style="margin-top:0">What Professor Manso recorded, 40 frames at a time. Candidates of the current scan are ringed.</p>
+      <div class="scrubber">
+        <button type="button" id="btn-film-prev" aria-label="Previous 40 frames">◀</button>
+        <input type="range" id="film-pos" min="0" max="19960" step="1" value="0" aria-label="Position in the video">
+        <button type="button" id="btn-film-next" aria-label="Next 40 frames">▶</button>
+        <button type="button" id="btn-film-hit">Next candidate</button>
+        <span class="small muted num" id="film-range"></span>
+      </div>
+      <div class="filmstrip" id="filmstrip"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 4. message -->
+  <section class="panel" id="message" aria-labelledby="msg-title">
+    <div class="panel-head"><span class="step">4</span><h2 id="msg-title">Message from space</h2></div>
+    <p class="lede">In 2001 each pair of students hunted two letters and the class merged its lists of frame numbers. Here the
+      computer does the merging: every detection is sorted by frame number, and when two detectors claim the same frame the higher
+      score wins. Train and scan every letter at once with the settings above, or one letter at a time in steps 2 and 3.</p>
+
+    <div class="row center">
+      <button type="button" class="primary" id="btn-all">Train and scan all 31 letters</button>
+      <button type="button" id="btn-stop" class="hidden">Stop</button>
+      <button type="button" id="btn-reset">Forget all detectors</button>
+      <span id="all-status" class="small ink-2" aria-live="polite"></span>
+    </div>
+    <div class="progress-grid hidden" id="progress"></div>
+
+    <div class="message-text" id="message-text" aria-live="polite"><span class="placeholder">No letters scanned yet.</span></div>
+    <p class="small muted" id="message-note"></p>
+    <div id="inspect"></div>
+
+    <figure class="chart">
+      <figcaption>
+        <span class="chart-title">The detections along the video</span>
+        <span class="legend"><span class="key"><span class="line" style="width:3px;height:12px"></span><span id="legend-clear">clear</span></span>
+          <span class="key"><span class="line prev" style="width:3px;height:12px"></span><span id="legend-weak">barely passed</span></span></span>
+      </figcaption>
+      <svg class="plot" id="message-strip" height="58" role="img" aria-label="Detections along the video"></svg>
+      <button type="button" class="link table-toggle" id="msg-table-toggle">Show as a table</button>
+      <div class="table-scroll hidden" id="msg-table"></div>
+    </figure>
+  </section>
+
+  <footer class="foot">
+    <p class="downloads">Download the code:
+      <a id="dl-french" href="downloads/lettres-d-espace-2001.zip" download>the original 2001 lab, in French (.zip)</a><span id="dl-sep"> · </span>
+      <a id="dl-english" href="downloads/letters-from-space-2026.zip" download>this English edition with the dashboard (.zip)</a></p>
+    <p class="downloads">The source code is on GitHub:
+      <a href="https://github.com/croftd/letters-from-space">github.com/croftd/letters-from-space</a>
+      (the 2001 lab and this English edition, free to use and adapt).</p>
+    <p>
+    Letters from Space is a neural-network practical lab at ESI, Université Polytechnique de Bobo-Dioulasso, from 2001: Professor
+    Manso's story about Letters from Space, the video with its hidden poem, and the network his students trained. This English
+    edition (2026) still runs that network, the same hand-written Java code the students used, one object per neuron and per
+    synapse. prepared by David Croft, Burkina, 2001
+    </p>
+    <p id="engine-note" class="hidden">On this page the network runs in your own browser, one training thread per processor core:
+      a line-by-line JavaScript translation of that Java code, with the same objects, the same arithmetic and the same random
+      numbers, so a seed trains exactly as it does in Java. Nothing is computed on a server.</p>
+  </footer>
+</div>
+
+<div id="tooltip" class="hidden" role="tooltip"></div>
+<div id="notice" class="hidden" role="status"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

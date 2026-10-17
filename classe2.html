@@ -1,0 +1,474 @@
+<html>
+<head>
+  <title>Réseaux neuronaux | Classe 2</title>
+  <link href="../homeStyle.css" rel="stylesheet" type="text/css">
+  <!-- script to change the title if we are running inside a frameset -->
+  <script language="JavaScript">
+<!-- 
+     if (top != self) top.document.title = document.title;
+//-->
+  </script>
+  <meta http-equiv="Content-Type" content="text/html">
+</head>
+
+<body lang="fr">
+<h2>2.3 Les réseaux multi-couches et la rétro-propagation</h2>
+
+<h3>2.3.1  La révision</h3>
+
+<p>La derniere classe nous avons introduit un élément du traitement
+relativement simple modelé après les unités de l'informatique de base du
+cerveau humain (le neurone). Nous avons appelé ces éléments les ULSs (les
+Unités de la Logique du Seuil).</p>
+
+<p>Il y a plusieurs avantages à utiliser ces unités:</p>
+<ul>
+  <li>Nous pouvons écrire un algorithme tel que <em>un ULS apprend par
+    lui-même</em>!</li>
+  <li><em>Capacité de généraliser</em> (eg. par exemples, le fonction AND. Si
+    x<sub>1</sub>x<sub>2</sub> = (1,1.02), le réseau va sortir 1 encore)</li>
+  <li><em>La connaissance est chiffrée dans les poids des rapports</em> (pas
+    dans un paramètre seul ou expression mathématique)</li>
+  <li><em>Biologiquement plausible</em></li>
+</ul>
+
+<p>Cependant, la dernière classe nous avons vu qu'un ULS seul peut être
+utilisé pour modeler des fonctions simples tel que logiquement AND.</p>
+
+<h3>2.3.2 La représentation des fonctions plus complexes</h3>
+
+<p>Un réseau avec seulement un ULS est très limité. Par exemple, une réseaux
+avec deux entrée ne peuvent pas se rapprocher une fonction XOR (ou XNOR):</p>
+
+<table border="1">
+  <tbody>
+    <tr>
+      <td>x<sub>1</sub></td>
+      <td>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <msub>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msub>
+        </math>
+      </td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Nous pouvons représenter cette fonction comme graphiquement comme:</p>
+
+<p><img src="images/XORFunc.JPG" alt="XOR Fonction"></p>
+
+<p>Le problème avec la fonction XOR est que ce n'est pas seperable
+linéairement - nous ne pouvons pas dessiner de ligne droite qui seperates les
+points verts des points rouges.</p>
+
+<p><em>Comment est-ce que nous pouvons manier des fonctions plus
+complexes?</em></p>
+
+<p>Nous pouvons combiner les ULSs (Unités de la Logique du Seuil) ensemble tel
+que la production d'un ULS crée l'entrée pour un autre:</p>
+
+<p><img src="images/XORPerceptron.JPG" alt="XOR Perceptron"></p>
+
+<p><em>Notez l'usage de la barrière AND - c'est la fonction que nous avons
+modelé dans classe 1!</em></p>
+
+<p>En introduisant une couche intermédiaire de noeuds dans le réseau, nous
+pouvons former le réseau à peform tâches de la reconnaissance plus complexes
+(même les problèmes qui ne sont pas des seperable linéairement). C'est le
+domaine des réseaux multi-couche.</p>
+
+<p>Fondamentalement, les noeuds additionneurs au réseau nous permettent de
+dessiner plus de lignes pour grouper les productions désirées ensemble:</p>
+
+<p><img src="images/seperableABFonction.gif"
+alt="Deux lignes pour separer AB"></p>
+
+<p>Par example, avec beaucoup d'unités cachées nous pouvons créer une surface
+de la décision complexe tel que:</p>
+
+<p><img src="images/holeFonction.gif" alt="Hole Fonction"></p>
+
+<p><em></em></p>
+
+<h3>2.3.3 Les réseaux multi-couches</h3>
+
+<p><em>Caractéristiques Principales:</em></p>
+<ul>
+  <li>x entrées</li>
+  <li>n couches intermédiaires (chacun avec un nombre fixe de noeuds)</li>
+  <li>y sorties</li>
+  <li>Les unités cachées permettent le réseau à développer les détecteurs du
+    trait complexe, ou représentations internes.
+    <p><em>Aussi, le comportement de ces unités est appris
+    automatiquement!</em></p>
+    <p>(par exemples: reconnaissez le nombre 7  - un noeud caché peut détecter
+    une ligne verticale ou diagonale)</p>
+  </li>
+  <li><em>quelles fonctions peuvent être modelé avec les réseaux multi-couche?
+    Tout!</em></li>
+</ul>
+
+<p>Par exemples, un petit réseau avec une couche intermédiaires (une couche
+cachée) avec 2 noeuds, et 4 sorties:</p>
+
+<p><img src="images/3layerNet.gif" alt="reseau avec 3 couche"></p>
+
+<p>Le problème est comment former les réseaux multi-couches. Comment est-ce
+que nous étendons l'algorithme de base introduit pour le ULS à un réseau des
+ULSs avec beaucoup d'entrées, productions et couches intermédiaires de
+noeuds?</p>
+
+<h3>2.3.4 Utilisant les vecteurs à représenter des entrées, des poids et des
+productions</h3>
+
+<p>En premier, c'est important que nous utilisons des vecteurs - il peut y
+avoir beaucoup de noeuds de la production, et nous devons déterminer quels
+noeuds contribuent (et dans quelle direction) à l'erreur. Minimiser l'erreur
+de la production exige que nous considérons les poids pour tous les noeuds
+dans chaque couche - nous ne pouvons pas considérer juste un noeud à la
+fois.</p>
+
+<p>Nous ferons usage étendu du "produit intérieur" pour comparer les
+vecteurs.</p>
+
+<p>Le rappel:</p>
+
+<p><img src="images/2vecs.gif" alt="Vecteurs v et w"></p>
+
+<p><strong>v.w</strong> = v<sub>1</sub>w<sub>1</sub> +
+v<sub>2</sub>w<sub>2</sub> = 2</p>
+
+<p>Aussi:</p>
+
+<p><img src="images/cos45.gif" alt="Cos 45"></p>
+
+<p><strong>v.w</strong> = |v||w|cos(theta) = sqr(2)*2*cos(45)</p>
+
+<p></p>
+
+<p><img src="images/iprods.gif" alt="Inner products"></p>
+
+<p>Essentiellement, le produit intérieur nous dit comme bien deux vecteurs
+sont alignés. Ce sera très utile quand a comparé la production courante du
+réseau avec la production désirée.</p>
+
+<h3>2.3.5 Vecteurs et la surface de l'erreur: la règle de delta</h3>
+
+<p>L'idée est à calculer une erreur chaque temps le réseau est présenté avec
+un vecteur de la formation et exécuter une origine de l'inclinaison (gradient
+descent en anglais) sur l'erreur ont considéré comme fonction des poids. Il y
+aura une inclinaison ou incliner pour chaque poids. Donc, nous trouvons les
+poids qui donnent l'erreur minime.</p>
+
+<p>Par exemples, un graphique du vecteur du poids contre l'erreur:</p>
+
+<p><img src="images/deltaWeights.gif" alt="Erreur vs. Poids"></p>
+
+<p><img src="images/grdes.gif" alt="Gradient descent"></p>
+
+<p>Maintenant pour exécuter l'origine de l'inclinaison, <em>l'erreur doit être
+une fonction continue et differentiable des poids</em> et il doit y avoir une
+inclinaison bien définie à chaque point. Mais, pendant la dernière classe nous
+avons défini la fonction de la sortie (y) comme:</p>
+
+<p>y = 1 si <em>a</em> est plus que le seuil (theta) et</p>
+
+<p>y = 0 si <em>a</em> est moins du seuil (theta) ou</p>
+
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>a</mi>
+  <mo>=</mo>
+  <munderover>
+    <mrow>
+      <mo>&sum;</mo>
+      <mtext></mtext>
+      <mi></mi>
+      <msub>
+        <mi>x</mi>
+        <mi>i</mi>
+      </msub>
+      <msub>
+        <mi>w</mi>
+        <mi>i</mi>
+      </msub>
+    </mrow>
+    <mrow>
+      <mi>i</mi>
+      <mo>=</mo>
+      <mn>1</mn>
+    </mrow>
+    <mi>n</mi>
+  </munderover>
+</math>
+</p>
+
+<p>Pour les réseaux multi-couche, nous allons utiliser une nouvelle fonction
+de l'activation qui est continue et differentiable.  C'est la fonction du
+sigmoid:</p>
+
+<p>
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mi>y</mi>
+  <mo>=</mo>
+  <mfrac>
+    <mn>1</mn>
+    <mrow>
+      <mn>1</mn>
+      <mi></mi>
+      <mo>+</mo>
+      <msup>
+        <mi>e</mi>
+        <mrow>
+          <mo>-</mo>
+          <mi>a</mi>
+        </mrow>
+      </msup>
+    </mrow>
+  </mfrac>
+  <mi></mi>
+</math>
+</p>
+
+<p><img src="images/sigmoid.gif" alt="sigmoid fonction"></p>
+
+<p></p>
+
+<h3>L'algorithme généralisé - s'appuyer par  la rétro-propagation
+(Backpropogation en anglais)</h3>
+
+<p>Le 'perceptron' qui apprend la règle a été développé par Frank Rosenblatt
+dans les 1950s. Modèles de la formation tardifs originalement est présenté aux
+entrées du réseau; la production est calculé. Et puis, les poids des rapports
+(w<sub>j</sub>) sont modifié par un montant de qui est proportionnel au
+produit de:</p>
+<ul>
+  <li>la différence entre la production réelle, y, et la production désirée,
+    d, and  </li>
+  <li>l'entré modèle, x.
+    <p></p>
+  </li>
+</ul>
+
+<p>L'algorithme est comme suit:</p>
+<ol>
+  <li>Initialisez les poids aux petits aléatoires nombres (entre -0.1 et
+  0.1)</li>
+  <li>Présentez un vecteur x au neurone entre et calcule la production
+    <p>(commencer à la première couche et calculer la production dans chaque
+    couche consécutive)</p>
+  </li>
+  <li>Mettez à jour les poids d'après:
+    <p></p>
+  </li>
+
+  <p><img src="images/weightsEquation.gif"
+  alt="Fonction pour Mettez a jour les"></p>
+
+  <p>où:</p>
+</ol>
+<ul>
+  <li>w, d, y et x sont vecteurs!</li>
+  <li>d est la production désirée,</li>
+  <li>t est le nombre de l'itération, et</li>
+  <li>l'eta est le gain ou dimension du pas où 0.0 &lt; n &lt; 1.0
+    <p>(Une valeur raisonnable est 0.35)</p>
+  </li>
+</ul>
+
+<p></p>
+
+<p>Les pas de la répétition 2 et 3 jusqu'à:</p>
+<ul>
+  <li>l'erreur de l'itération est moins qu'un seuil de l'erreur utilisateur -
+    spécifié ou</li>
+  <li>un nombre prédéterminé d'itérations a été complété.</li>
+</ul>
+
+<p></p>
+
+<p>Remarquez:</p>
+
+<p>Quand nous ajustons les poids, nous commençons en calculant l'erreur à la
+production et ajustons les poids entre la dernière couche intermédiaire et la
+couche de la sortie (utilisons la fonction w(t+1) = w(t) + n(d-y)x ). <em>Mais
+common est-ce que nous pouvons calculer l'erreur pour une couche
+intermediare?</em></p>
+
+<p>Pour un vecteur de la sortie désiré (d), nous pouvons utiliser les poids
+entre la sortie et la couche intermediare à temps t pour calculer comme la
+production des noeuds intermédiaires doit changer dans ordre pour le réseau à
+production le vecteur désiré.</p>
+
+<p></p>
+
+<h3>Mesurer l'erreur</h3>
+
+<p>Pendant former, c'est souvent utile à mesurer la performance du réseau
+comme il essaie de trouver l'ensemble du poids optimal. Une mesure de l'erreur
+commune ou fonction du coût utilisées sont erreur somme - rendue carré
+(sum-squared en anglais). Il est calculé sur tout des vecteurs de
+l'entrée/production dans la formation mise et est donné par l'équation
+dessous:</p>
+
+<p></p>
+
+<p><img src="images/costFunction.gif" alt="Fonction du cout"></p>
+
+<p>où p est le nombre de vecteur de l'input/output assortit dans l'ensemble de
+la formation.</p>
+
+<p>Le réseau apprend en étant dit quand il a été fait des erreurs (a surveillé
+l'érudition).</p>
+
+<p><em>Si une unité de la production donne la réponse mal, l'erreur est
+propagée arrière en bas le réseau, en produisant le poids change dans tous les
+liens qui ont produit la réponse mal.</em></p>
+
+<p><em>Voir page 504 de (Rich et Knight, 1991)  pour un algorithme plus
+détaillé spécifique à un reséau avec 3 couches.</em></p>
+
+<p></p>
+
+<h3>2.3.3 Des choses importantes avec les réseaux multi-couches et la
+rétro-propagation</h3>
+
+<p><strong>Des problèmes potentiels:</strong></p>
+
+<p>1)  <em>Existence de minima local dans la surface de l'erreur:</em></p>
+
+<p><img src="images/localmin.gif" alt="Local Minima"></p>
+
+<p>Un réseau peut glisser en bas la surface de l'erreur dans un ensemble de
+poids qui ne résolvent pas le problème sur quoi il est formé. Si cet ensemble
+de poids est un minima local, le réseau n'arrivera jamais à l'ensemble optimal
+de poids qui résolvent le problème.</p>
+
+<p>Des solutions:</p>
+<ul>
+  <li>Le paramètre de la vitesse permet l'algorithme de sauter sur les petits
+    minimas locals</li>
+  <li>Appliquez les algorithmes de <em>recuite simulée</em> (simulated
+    annealing en anglais). Mais quest-ce que c'est?
+    <p></p>
+    <p>Considérez une balle dans une boîte noire. Il y a une surface à
+    l'intérieur de la boîte et nous voulons à rouler la balle dans la vallée
+    la plus profonde - mais nous ne pouvons pas voir à l'intérieur de la
+    boîte. La solution est basée sur secouer la boîte.</p>
+    <p>Si nous secouons trop violemment, la balle sautera de vallée à vallée
+    au hasard. Si nous secouons à doucement, la balle peut rester mis dans une
+    vallée locale. La recuite simulée implique secouer la boîte très en
+    premier fondamentalement, en ralentissant alors. À un point, la
+    probabilité de que la balle sautera de A à B sera plus grand que la
+    probabilité à que la balle sautera de B à A, et comme le secouer devient
+    plus doux, la balle sera incapable de s'échapper de vallée B. Nous mettons
+    notre foi dans les probabilités mais dans entraînement cette technique est
+    très efficace.</p>
+    <p></p>
+  </li>
+  <li>Ajuster la forme de la fonction de l'activation de l'unité peut aider
+    réduisez la susceptibilité à minima local</li>
+</ul>
+
+<p>2) Vitesse lente d'apprendre (mais c'est biologiquement plausible!)</p>
+
+<p>3) N'augmentez pas très bien - le nombre des exemples pour former est
+superlinear avec la dimension du réseau</p>
+
+<p></p>
+
+<p><strong>Generalization:</strong></p>
+
+<p>Si tout les entrées et productions possibles sont montrées à un réseau
+rétro-propagation, le réseau veut (probablement, finalement) trouvez un
+ensemble de poids qui dressent une carte de les entrées sur les productions.
+Cependant, nous ne savons pas tous des entrées possibles pour beaucoup de
+problèmes IA, (eg. visage et reconnaissance du caractère).</p>
+
+<p><em>Une force majeure des réseaux neuraux est leur capacité de
+généraliser.</em></p>
+
+<p>(utilisez l'exemple de reconnaître une lettre A).</p>
+<ul>
+  <li>Un réseau rétro-propagation interpolera quand nous le donnons les
+    entrées qu'il n'a jamais vu.</li>
+  <li>La généralisation aide aussi à accomodate les entrées bruyantes.</li>
+</ul>
+
+<p></p>
+
+<p>Malheureusement, nous pouvons tomber aussi sur problèmes avec
+généralisation: (Voir page 508 de Rich et Knight, 1991)</p>
+<ul>
+  <li>Si la période de la formation est trop longue, le réseau commence à
+    mémoriser l'entrée production individuelle assortit plutôt que se
+    contenter de poids qui généralement décrivent la projection topographique
+    pour tous les cas.</li>
+  <li>Avec milliers de poids très estimés à sa disposition, le backpropagation
+    est theoreticaly capable d'entreposer des ensembles de la formation
+    entiers (ou, avec assez d'unités cachées, l'algorithme peut apprendre à
+    assigner une unité cachée à chaque modèle de l'entrée distinct dans
+    l'ensemble de la formation)
+    <p></p>
+  </li>
+</ul>
+
+<p>Comme faites nous prévenons notre réseau de devenir un dictionnaire de
+l'entrée - production (table-lookup en anglais):</p>
+<ul>
+  <li>Arrêtez la formation quand un plateau a été atteint</li>
+  <li>Délibérément ajoutez des petites quantités de bruit à l'entrée modèle
+    (assez aider prévient la mémorisation, mais pas assez confondre la tâche
+    de la classification)</li>
+  <li>Réduisez le nombre d'unités cachées dans le réseau - créez un goulot
+    entre l'entrée et les couches de la production. Cela forcera le réseau à
+    monter avec représentations internes compactes d'entrées.</li>
+</ul>
+
+<p></p>
+
+<h3>Remarquez:</h3>
+
+<p>Les classes et le travaux practique étaient au sujet des réseaux
+multi-couche que nous formons utiliser l'algorithme rétro-propagation. Mais,
+il y a des autres types de réseaux neuraux, quelques-uns avec les candidatures
+très différentes. Je crois que Prof. Manso va parler de ces réseaux dans une
+classes après le congé.</p>
+
+<p></p>
+
+<p>Travaux Practique - <a href="travauxPractique.html">Lettres
+d'espace</a></p>
+
+<p></p>
+<address>
+  préparé février 2001 par David Croft
+</address>
+
+<p></p>
+</body>
+</html>

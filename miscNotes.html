@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Réseaux neuronaux | misc notes</title>
+  <link href="../homeStyle.css" rel="stylesheet" type="text/css">
+  <!-- script to change the title if we are running inside a frameset -->
+  <script language="JavaScript">
+<!-- 
+     if (top != self) top.document.title = document.title;
+//-->
+  </script>
+  <meta name="GENERATOR" content="amaya V4.2.1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+
+<body>
+<p></p>
+
+<p>Hopfield networks    </p>
+
+<p>Unsupervised Learning (competitive learning) pg. 510   </p>
+
+<p>Recurrent networks (pg. 517)    </p>
+
+<p>Structured Distributed Representations:  </p>
+
+<p>Representational limitations of simple neural networks  </p>
+
+<p>The localist networks described in week 8 and the distributed networks
+produced by backpropagation are fine for representing simple associations,
+e.g. between the concepts cat and furry. But they lack the representational
+power to convey relational information, as in: </p>
+
+<p>Because the cat scratched the dog, the dog chased the cat. In logical
+symbolism, this is something like: (cause ( (scratch (cat dog)) (chase (dog
+cat)) ) ).  To model high level cognition, a neural network must be able to
+distinguish between a dog chasing a cat and a cat chasing a dog, and also be
+able to represent the higher level relation between scratching and chasing. In
+current research, there are two general ways of capturing relational
+information in distributed representations:  Vector models that build
+distributed representations algebraically  Neural synchrony models that use
+time as an extra component  </p>
+
+<p>Logical aside: in formal systems, you can prove that any system with
+n-place relations, e.g. (gives (donor recipient gift)), can be reduced to a
+system with 2-place relations, but not to a system with only 1-place
+predicates.</p>
+
+<p>Human thought - complex problems such as solving a mathematical equation
+may seems like a set of serial steps. However, at each step, parallel
+processing may be required to take the problem the next macro state.</p>
+
+<p>In particular, it is possible to process strings of symbols which obey the
+rules of some formal system and which are interpreted (by humans) as `ideas'
+or `concepts'. It was the hope of the AI programme that all knowledge could be
+formalised in such a way: that is, it could be reduced to the manipulation of
+symbols according to rules and this manipulation implemented on a von Neumann
+machine (conventional computer).</p>
+
+<p>Complex structures needed for the problem's solution might be encoded in
+the neural interconnection pattern. This is the notion that has given birth to
+a branch of AI called Connectionism.</p>
+
+<p>The buzz word of connectionism - Neural Networks</p>
+
+<p>Go to HTML book, neural net definition Biological description of
+neuron.</p>
+
+<p>Introduce idea of units, connections and spreading activation</p>
+
+<p>Give an example network - recognizing a scene</p>
+
+<p>Relaxation Property - iteratively approaching the best solution to the
+problem,</p>
+
+<p>Must Read - Chandrasekaran (1981) - naturally occuring instances of
+distributed computation in information processing.</p>
+
+<p>Lippman (1987) - good introductory paper to neural network models</p>
+
+<p>Smolensky (1986) - mathematical PDP models to the neural and conceptual
+worlds.</p>
+
+<p>Parallel Distributed Processing (PDP) models Local vs. Distributed PDP
+models</p>
+
+<p>Two broad classes distinguished based upon the extent to which they employ
+the distributed processing paradigm. Whereas in Local models it is the
+activity of a single unit that represnets the degreee of participation of a
+known conceptual entity, in the distributed models it is a pattern of activity
+over several units that determines the same degree of participation.</p>
+
+<p>Therefore:</p>
+
+<p>Local: each unit (neuron) represents something cognitive like a concept or
+a proposition</p>
+
+<p>Distributed: concepts, propositions, images, etc. are distributed over
+multiple units</p>
+
+<p>Connectionism is a very interdisciplinary field - statistics, psychology,
+neurobiology. Switching times of madern-day electronic components are a
+million times faster than the time that neurons take to change state. Les
+reseaux sémantique</p>
+
+<h3>Ajuster le seuil</h3>
+
+<p>Dans notre premier exemple la valeur du seuil, theta, est restée une valeur
+constante. Nous voulons inclure le paramètre du seuil, theta dans notre
+algorithme augmenter la gamme de problèmes qui peuvent être classés par le
+réseau.</p>
+
+<p>Pour placer l'adaptation du seuil sur la même condition comme les poids,
+nous supposons que c'est un autre poids qui est connecté à une entrée de -1 en
+permanence. J'appellerai ce le vecteur du poids augmenté, dans contextes où la
+confusion peut éveiller, bien que cette terminologie soit par aucuns moyens
+standard.</p>
+
+<p></p>
+
+<h3>From Artificial Intelligence Elaine Rich Kevin Knight Second Edition
+McGraw Hill (c) 1991, 1983</h3>
+
+<p>Backpropogation Networks - pg. 500+ pg. 508 -</p>
+
+<p>Common Generalization Effect - with too many hidden nodes the network can
+potentially memorize the training set and fails to generalize!</p>
+
+<p>Pg. 528 Game of Life problem:</p>
+
+<p>Rules: If a cell is living, it continues to live if surrounded by exactly
+two or three living cells. If it is surrounded by more than three living
+cells, it dies of overcrowding; if less than two of its neighbours is alive,
+it dies of loneliness. If a cell is dead, it becomes living if it is
+surrounded by exactly three living cells. Otherwise, it remains dead.</p>
+
+<p>For example: x.. .x. ... becomes dead xx. .x. x.. cell stays living</p>
+
+<p>a) create input-output pairs for every possible configuration of a cell and
+its eight neighbours. There will be 512 (2^9) different input vectors.
+Associated with each input vector will be one output bit: 0 if the next sate
+of the cell is dead, 1 if living. Use the rules above to compute the proper
+output for each input vector.</p>
+
+<p>b) Tarin a three-layer backpropagation network to learn the behaviour of a
+Life cell. Use two hidden units.</p>
+
+<p>c) Print out the set of weights and biases learned by the network. Now
+derive a set of (symbolic) rules that concisely describes how the network is
+actually computing its output. Focus on the behaviours of the two hidden units
+- how do they respond to their inputs, and what effects do they have on the
+eventual output?</p>
+
+<p>d) Compare the rules you derived in part (c) with the rules you used to
+create the data in part (a).</p>
+
+<p></p>
+
+<p></p>
+</body>
+</html>
