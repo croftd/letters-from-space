@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="250" viewBox="0 0 300 250" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Une surface d'erreur avec un minimum global et un minimum local</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="300" height="250" fill="#fff"/>
+<line x1="40.0" y1="225.0" x2="295.0" y2="225.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="40.0" y1="225.0" x2="40.0" y2="15.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="293.0" y="243.0" text-anchor="end" fill="#222" font-style="italic">w</text>
+<text x="32.0" y="25.0" text-anchor="end" fill="#222" font-style="italic">E</text>
+<path d="M 55,45 C 64,165 88,198 108,196 C 132,194 140,138 162,128 C 182,120 194,152 210,152 C 232,152 255,100 272,48" fill="none" stroke="#1f5fbf" stroke-width="2.2"/>
+<circle cx="107" cy="196" r="4.5" fill="#d0392b"/><text x="107.0" y="214.0" text-anchor="middle" fill="#222" font-size="11">minimum global</text>
+<circle cx="208" cy="152" r="4.5" fill="#d0392b"/><text x="210.0" y="172.0" text-anchor="middle" fill="#222" font-size="11">minimum local</text>
+<circle cx="272" cy="48" r="4.5" fill="#222"/><text x="266.0" y="44.0" text-anchor="end" fill="#222" font-weight="bold">P</text>
+<path d="M 262,70 C 252,100 240,130 222,146" fill="none" stroke="#222" stroke-width="1.1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+</svg>

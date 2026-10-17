@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="318" viewBox="0 0 320 318" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Le signe du produit intérieur selon l'angle entre v et w</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="320" height="318" fill="#fff"/>
+<line x1="30.0" y1="82.0" x2="155.0" y2="82.0" stroke="#1f5fbf" stroke-width="2.2" marker-end="url(#arrowblue)"/>
+<line x1="30.0" y1="82.0" x2="114.8" y2="29.0" stroke="#1f5fbf" stroke-width="2.2" marker-end="url(#arrowblue)"/>
+<text x="155.0" y="99.0" text-anchor="end" fill="#222" font-weight="bold">w</text>
+<text x="122.8" y="33.0" text-anchor="start" fill="#222" font-weight="bold">v</text>
+<path d="M 54,82 A 24,24 0 0,0 50.4,69.3" fill="none" stroke="#222" stroke-width="1.2"/>
+<text x="60.8" y="77.7" text-anchor="start" fill="#222" font-size="12" font-style="italic">φ</text>
+<text x="235.0" y="52.0" text-anchor="start" fill="#222" font-size="13">φ &lt; 90°</text>
+<text x="235.0" y="72.0" text-anchor="start" fill="#222" font-size="13" font-weight="bold">v·w &gt; 0</text>
+<line x1="30.0" y1="190.0" x2="155.0" y2="190.0" stroke="#1f5fbf" stroke-width="2.2" marker-end="url(#arrowblue)"/>
+<line x1="30.0" y1="190.0" x2="30.0" y2="112.0" stroke="#1f5fbf" stroke-width="2.2" marker-end="url(#arrowblue)"/>
+<text x="155.0" y="207.0" text-anchor="end" fill="#222" font-weight="bold">w</text>
+<text x="38.0" y="116.0" text-anchor="start" fill="#222" font-weight="bold">v</text>
+<rect x="30" y="178" width="12" height="12" fill="none" stroke="#222" stroke-width="1"/>
+<text x="48.0" y="174.0" text-anchor="start" fill="#222" font-size="12" font-style="italic">φ</text>
+<text x="235.0" y="160.0" text-anchor="start" fill="#222" font-size="13">φ = 90°</text>
+<text x="235.0" y="180.0" text-anchor="start" fill="#222" font-size="13" font-weight="bold">v·w = 0</text>
+<line x1="95.0" y1="300.0" x2="220.0" y2="300.0" stroke="#1f5fbf" stroke-width="2.2" marker-end="url(#arrowblue)"/>
+<line x1="95.0" y1="300.0" x2="24.3" y2="229.3" stroke="#1f5fbf" stroke-width="2.2" marker-end="url(#arrowblue)"/>
+<text x="220.0" y="317.0" text-anchor="end" fill="#222" font-weight="bold">w</text>
+<text x="18.3" y="225.3" text-anchor="end" fill="#222" font-weight="bold">v</text>
+<path d="M 119,300 A 24,24 0 0,0 78.0,283.0" fill="none" stroke="#222" stroke-width="1.2"/>
+<text x="108.5" y="276.3" text-anchor="start" fill="#222" font-size="12" font-style="italic">φ</text>
+<text x="235.0" y="270.0" text-anchor="start" fill="#222" font-size="13">φ &gt; 90°</text>
+<text x="235.0" y="290.0" text-anchor="start" fill="#222" font-size="13" font-weight="bold">v·w &lt; 0</text>
+</svg>

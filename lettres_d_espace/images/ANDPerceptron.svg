@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="335" viewBox="0 0 360 335" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Un perceptron qui calcule AND, pour les entrées x1 = 1 et x2 = 1</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="360" height="335" fill="#fff"/>
+<circle cx="180" cy="150" r="32" fill="#eef3fd" stroke="#1f5fbf" stroke-width="2"/><text x="180.0" y="155.0" text-anchor="middle" fill="#222" font-size="12">a = 0.3</text>
+<line x1="180.0" y1="118.0" x2="180.0" y2="62.0" stroke="#1f5fbf" stroke-width="1.5" marker-end="url(#arrowblue)"/>
+<rect x="146" y="32" width="68" height="26" rx="3" fill="#f2f2f2" stroke="#222" stroke-width="1.2"/><text x="180.0" y="50.0" text-anchor="middle" fill="#222" font-size="12">y = 1</text>
+<rect x="256" y="257" width="68" height="26" rx="3" fill="#f2f2f2" stroke="#222" stroke-width="1.2"/><text x="290.0" y="275.0" text-anchor="middle" fill="#222" font-size="12">x<tspan font-size="10" dy="3">1</tspan><tspan dy="-3"> = 1</tspan></text>
+<rect x="36" y="257" width="68" height="26" rx="3" fill="#f2f2f2" stroke="#222" stroke-width="1.2"/><text x="70.0" y="275.0" text-anchor="middle" fill="#222" font-size="12">x<tspan font-size="10" dy="3">2</tspan><tspan dy="-3"> = 1</tspan></text>
+<rect x="11" y="137" width="68" height="26" rx="3" fill="#f2f2f2" stroke="#222" stroke-width="1.2"/><text x="45.0" y="155.0" text-anchor="middle" fill="#222" font-size="12">−1</text>
+<line x1="275.0" y1="257.0" x2="204.0" y2="172.0" stroke="#1f5fbf" stroke-width="1.6"/>
+<line x1="85.0" y1="257.0" x2="156.0" y2="172.0" stroke="#1f5fbf" stroke-width="1.6"/>
+<line x1="79.0" y1="150.0" x2="147.0" y2="150.0" stroke="#1f5fbf" stroke-width="1.6"/>
+<text x="258.0" y="205.0" text-anchor="start" fill="#222" font-size="12" font-style="italic">w<tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> </tspan>= 0.5</text>
+<text x="103.0" y="205.0" text-anchor="end" fill="#222" font-size="12" font-style="italic">w<tspan font-size="10" dy="4">2</tspan><tspan dy="-4"> </tspan>= 0.5</text>
+<text x="112.0" y="140.0" text-anchor="middle" fill="#222" font-size="12" font-style="italic">u = 0.7</text>
+<text x="180.0" y="318.0" text-anchor="middle" fill="#222" font-size="12">a = 0.5×1 + 0.5×1 − 0.7 = 0.3 &gt; 0  ⇒  y = 1</text>
+</svg>

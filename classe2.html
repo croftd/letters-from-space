@@ -79,7 +79,7 @@ avec deux entrée ne peuvent pas se rapprocher une fonction XOR (ou XNOR):</p>
 
 <p>Nous pouvons représenter cette fonction comme graphiquement comme:</p>
 
-<p><img src="images/XORFunc.JPG" alt="XOR Fonction"></p>
+<p><img src="images/XORFunc.svg" alt="XOR Fonction"></p>
 
 <p>Le problème avec la fonction XOR est que ce n'est pas seperable
 linéairement - nous ne pouvons pas dessiner de ligne droite qui seperates les
@@ -91,7 +91,7 @@ complexes?</em></p>
 <p>Nous pouvons combiner les ULSs (Unités de la Logique du Seuil) ensemble tel
 que la production d'un ULS crée l'entrée pour un autre:</p>
 
-<p><img src="images/XORPerceptron.JPG" alt="XOR Perceptron"></p>
+<p><img src="images/XORPerceptron.svg" alt="XOR Perceptron"></p>
 
 <p><em>Notez l'usage de la barrière AND - c'est la fonction que nous avons
 modelé dans classe 1!</em></p>
@@ -104,13 +104,13 @@ domaine des réseaux multi-couche.</p>
 <p>Fondamentalement, les noeuds additionneurs au réseau nous permettent de
 dessiner plus de lignes pour grouper les productions désirées ensemble:</p>
 
-<p><img src="images/seperableABFonction.gif"
+<p><img src="images/seperableABFonction.svg"
 alt="Deux lignes pour separer AB"></p>
 
 <p>Par example, avec beaucoup d'unités cachées nous pouvons créer une surface
 de la décision complexe tel que:</p>
 
-<p><img src="images/holeFonction.gif" alt="Hole Fonction"></p>
+<p><img src="images/holeFonction.svg" alt="Hole Fonction"></p>
 
 <p><em></em></p>
 
@@ -135,7 +135,7 @@ de la décision complexe tel que:</p>
 <p>Par exemples, un petit réseau avec une couche intermédiaires (une couche
 cachée) avec 2 noeuds, et 4 sorties:</p>
 
-<p><img src="images/3layerNet.gif" alt="reseau avec 3 couche"></p>
+<p><img src="images/3layerNet.svg" alt="reseau avec 3 couche"></p>
 
 <p>Le problème est comment former les réseaux multi-couches. Comment est-ce
 que nous étendons l'algorithme de base introduit pour le ULS à un réseau des
@@ -157,20 +157,20 @@ vecteurs.</p>
 
 <p>Le rappel:</p>
 
-<p><img src="images/2vecs.gif" alt="Vecteurs v et w"></p>
+<p><img src="images/2vecs.svg" alt="Vecteurs v et w"></p>
 
 <p><strong>v.w</strong> = v<sub>1</sub>w<sub>1</sub> +
 v<sub>2</sub>w<sub>2</sub> = 2</p>
 
 <p>Aussi:</p>
 
-<p><img src="images/cos45.gif" alt="Cos 45"></p>
+<p><img src="images/cos45.svg" alt="Cos 45"></p>
 
 <p><strong>v.w</strong> = |v||w|cos(theta) = sqr(2)*2*cos(45)</p>
 
 <p></p>
 
-<p><img src="images/iprods.gif" alt="Inner products"></p>
+<p><img src="images/iprods.svg" alt="Inner products"></p>
 
 <p>Essentiellement, le produit intérieur nous dit comme bien deux vecteurs
 sont alignés. Ce sera très utile quand a comparé la production courante du
@@ -186,9 +186,9 @@ poids qui donnent l'erreur minime.</p>
 
 <p>Par exemples, un graphique du vecteur du poids contre l'erreur:</p>
 
-<p><img src="images/deltaWeights.gif" alt="Erreur vs. Poids"></p>
+<p><img src="images/deltaWeights.svg" alt="Erreur vs. Poids"></p>
 
-<p><img src="images/grdes.gif" alt="Gradient descent"></p>
+<p><img src="images/grdes.svg" alt="Gradient descent"></p>
 
 <p>Maintenant pour exécuter l'origine de l'inclinaison, <em>l'erreur doit être
 une fonction continue et differentiable des poids</em> et il doit y avoir une
@@ -254,7 +254,7 @@ sigmoid:</p>
 </math>
 </p>
 
-<p><img src="images/sigmoid.gif" alt="sigmoid fonction"></p>
+<p><img src="images/sigmoid.svg" alt="sigmoid fonction"></p>
 
 <p></p>
 
@@ -361,7 +361,7 @@ rétro-propagation</h3>
 
 <p>1)  <em>Existence de minima local dans la surface de l'erreur:</em></p>
 
-<p><img src="images/localmin.gif" alt="Local Minima"></p>
+<p><img src="images/localmin.svg" alt="Local Minima"></p>
 
 <p>Un réseau peut glisser en bas la surface de l'erreur dans un ensemble de
 poids qui ne résolvent pas le problème sur quoi il est formé. Si cet ensemble

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="570" height="390" viewBox="0 0 570 390" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Un neurone : dendrites, corps cellulaire, axone et synapses</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="570" height="390" fill="#fff"/>
+<path d="M 205,205 C 170,190 140,170 105,160" fill="none" stroke="#222" stroke-linecap="round" stroke-width="3"/>
+<path d="M 140,172 C 125,150 118,128 112,100" fill="none" stroke="#222" stroke-linecap="round" stroke-width="2"/>
+<path d="M 105,160 C 85,150 60,152 35,142" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.6"/>
+<path d="M 112,100 C 105,85 108,70 100,52" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.4"/>
+<path d="M 210,190 C 200,150 205,110 195,70" fill="none" stroke="#222" stroke-linecap="round" stroke-width="3"/>
+<path d="M 199,120 C 215,100 235,85 250,60" fill="none" stroke="#222" stroke-linecap="round" stroke-width="2"/>
+<path d="M 195,70 C 190,55 180,45 172,30" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.5"/>
+<path d="M 210,240 C 175,265 140,290 95,300" fill="none" stroke="#222" stroke-linecap="round" stroke-width="3"/>
+<path d="M 140,290 C 120,305 95,330 70,345" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.8"/>
+<path d="M 95,300 C 75,298 55,305 35,300" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.5"/>
+<path d="M 228,248 C 230,290 222,320 230,360" fill="none" stroke="#222" stroke-linecap="round" stroke-width="2.6"/>
+<path d="M 226,315 C 245,330 255,345 265,370" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.6"/>
+<path d="M 205,190 C 220,175 255,178 268,198 L 300,213 L 300,221 L 268,236 C 255,258 220,262 205,245 C 192,232 192,204 205,190 z" fill="#f6ead2" stroke="#222" stroke-width="1.6"/>
+<text x="234.0" y="214.0" text-anchor="middle" fill="#222" font-size="11">Corps</text>
+<text x="234.0" y="228.0" text-anchor="middle" fill="#222" font-size="11">cellulaire</text>
+<line x1="300.0" y1="217.0" x2="520.0" y2="217.0" stroke="#222" stroke-width="2"/>
+<rect x="315" y="209" width="44" height="16" rx="7" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<rect x="368" y="209" width="44" height="16" rx="7" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<rect x="421" y="209" width="44" height="16" rx="7" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<rect x="474" y="209" width="44" height="16" rx="7" fill="#fff" stroke="#222" stroke-width="1.4"/>
+<path d="M 520,217 Q 535,217 548,192" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.5"/>
+<circle cx="548" cy="192" r="4" fill="#222"/>
+<path d="M 520,217 Q 535,217 553,217" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.5"/>
+<circle cx="553" cy="217" r="4" fill="#222"/>
+<path d="M 520,217 Q 535,217 548,242" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.5"/>
+<circle cx="548" cy="242" r="4" fill="#222"/>
+<path d="M 40,30 C 60,70 95,110 128,148" fill="none" stroke="#222" stroke-linecap="round" stroke-width="1.5"/>
+<path d="M 122,150 a 7,7 0 1,0 14,0" fill="none" stroke="#222" stroke-width="1.5"/>
+<circle cx="129" cy="146" r="4.5" fill="#222"/>
+<circle cx="100" cy="52" r="3.5" fill="#222"/>
+<circle cx="172" cy="30" r="3.5" fill="#222"/>
+<circle cx="250" cy="60" r="3.5" fill="#222"/>
+<circle cx="35" cy="142" r="3.5" fill="#222"/>
+<circle cx="70" cy="345" r="3.5" fill="#222"/>
+<circle cx="265" cy="370" r="3.5" fill="#222"/>
+<circle cx="167" cy="278" r="3.5" fill="#222"/>
+<circle cx="203" cy="128" r="3.5" fill="#222"/>
+<text x="8.0" y="22.0" text-anchor="start" fill="#222" font-size="11">Axone d'un autre neurone</text>
+<text x="140.0" y="165.0" text-anchor="start" fill="#222" font-size="11">Synapse</text>
+<text x="40.0" y="280.0" text-anchor="start" fill="#222" font-size="12">Dendrites</text>
+<text x="300.0" y="175.0" text-anchor="start" fill="#222" font-size="11">Cône d'émergence</text>
+<line x1="320.0" y1="180.0" x2="290.0" y2="209.0" stroke="#222" stroke-width="1"/>
+<text x="392.0" y="194.0" text-anchor="start" fill="#222" font-size="11">Gaine de myéline</text>
+<line x1="420.0" y1="198.0" x2="405.0" y2="209.0" stroke="#222" stroke-width="1"/>
+<text x="445.0" y="250.0" text-anchor="start" fill="#222" font-size="12">Axone</text>
+<text x="310.0" y="268.0" text-anchor="start" fill="#222" font-size="11">Nœuds de Ranvier</text>
+<line x1="345.0" y1="257.0" x2="363.0" y2="226.0" stroke="#222" stroke-width="1"/>
+<line x1="370.0" y1="257.0" x2="416.0" y2="226.0" stroke="#222" stroke-width="1"/>
+<text x="560.0" y="162.0" text-anchor="end" fill="#222" font-size="11">vers d'autres</text>
+<text x="560.0" y="176.0" text-anchor="end" fill="#222" font-size="11">neurones</text>
+<circle cx="340" cy="331" r="3.5" fill="#222"/>
+<text x="350.0" y="335.0" text-anchor="start" fill="#222" font-size="11">= autres synapses</text>
+</svg>

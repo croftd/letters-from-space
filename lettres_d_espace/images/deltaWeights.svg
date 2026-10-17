@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="222" viewBox="0 0 320 222" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>L'erreur en fonction d'un poids : un minimum à trouver</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="320" height="222" fill="#fff"/>
+<line x1="40.0" y1="195.0" x2="305.0" y2="195.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="40.0" y1="195.0" x2="40.0" y2="15.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="303.0" y="213.0" text-anchor="end" fill="#222" font-style="italic">w</text>
+<text x="32.0" y="25.0" text-anchor="end" fill="#222" font-style="italic">E</text>
+<path d="M 72,30 Q 172,315 272,30" fill="none" stroke="#1f5fbf" stroke-width="2.2"/>
+<circle cx="172" cy="172.5" r="4.5" fill="#d0392b"/>
+<line x1="172.0" y1="177.0" x2="172.0" y2="195.0" stroke="#222" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="172.0" y="108.0" text-anchor="middle" fill="#222" font-size="12">les poids</text><text x="172.0" y="123.0" text-anchor="middle" fill="#222" font-size="12">recherchés</text>
+<line x1="172.0" y1="130.0" x2="172.0" y2="163.0" stroke="#222" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="172.0" y="211.0" text-anchor="middle" fill="#222" font-size="12" font-style="italic">w*</text>
+</svg>

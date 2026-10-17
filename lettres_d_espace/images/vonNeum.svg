@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="270" height="236" viewBox="0 0 270 236" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>L'architecture de von Neumann : le processeur et la mémoire</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="270" height="236" fill="#fff"/>
+<rect x="60" y="20" width="150" height="58" rx="4" fill="#eef3fd" stroke="#222" stroke-width="1.5"/>
+<text x="135.0" y="54.0" text-anchor="middle" fill="#222">Processeur (CPU)</text>
+<rect x="60" y="160" width="150" height="58" rx="4" fill="#eef3fd" stroke="#222" stroke-width="1.5"/>
+<text x="135.0" y="194.0" text-anchor="middle" fill="#222">Mémoire</text>
+<line x1="95.0" y1="80.0" x2="95.0" y2="157.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="88.0" y="124.0" text-anchor="end" fill="#222" font-size="12">données</text>
+<line x1="175.0" y1="158.0" x2="175.0" y2="81.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="182.0" y="116.0" text-anchor="start" fill="#222" font-size="12">données et</text>
+<text x="182.0" y="131.0" text-anchor="start" fill="#222" font-size="12">instructions</text>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="145" viewBox="0 0 340 145" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Le cosinus de 45 degrés vaut 1 sur racine de 2</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="340" height="145" fill="#fff"/>
+<polygon points="50,125 160,125 160,15" fill="#eef3fd" stroke="#222" stroke-width="1.8"/>
+<rect x="148" y="113" width="12" height="12" fill="none" stroke="#222" stroke-width="1"/>
+<path d="M 84,125 A 34,34 0 0,0 74.0,101.0" fill="none" stroke="#222" stroke-width="1.2"/>
+<text x="90.0" y="116.0" text-anchor="start" fill="#222" font-size="12">45°</text>
+<text x="105.0" y="143.0" text-anchor="middle" fill="#222">1</text>
+<text x="170.0" y="75.0" text-anchor="start" fill="#222">1</text>
+<text x="91.0" y="66.0" text-anchor="end" fill="#222">√2</text>
+<text x="200.0" y="66.0" text-anchor="start" fill="#222" font-size="14">cos 45° = 1 / √2</text>
+<text x="200.0" y="88.0" text-anchor="start" fill="#222" font-size="14">≈ 0.707</text>
+</svg>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="350" height="345" viewBox="0 0 350 345" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Un réseau multi-couches : entrées, 2 unités cachées, 4 sorties</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="350" height="345" fill="#fff"/>
+<line x1="55.0" y1="281.0" x2="125.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="55.0" y1="281.0" x2="215.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="99.0" y1="281.0" x2="125.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="99.0" y1="281.0" x2="215.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="143.0" y1="281.0" x2="125.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="143.0" y1="281.0" x2="215.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="187.0" y1="281.0" x2="125.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="187.0" y1="281.0" x2="215.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="231.0" y1="281.0" x2="125.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="231.0" y1="281.0" x2="215.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="275.0" y1="281.0" x2="125.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="275.0" y1="281.0" x2="215.0" y2="194.0" stroke="#555" stroke-width="1"/>
+<line x1="125.0" y1="166.0" x2="80.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="125.0" y1="166.0" x2="140.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="125.0" y1="166.0" x2="200.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="125.0" y1="166.0" x2="260.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="215.0" y1="166.0" x2="80.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="215.0" y1="166.0" x2="140.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="215.0" y1="166.0" x2="200.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="215.0" y1="166.0" x2="260.0" y2="84.0" stroke="#555" stroke-width="1"/>
+<line x1="55.0" y1="311.0" x2="55.0" y2="291.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="55" cy="285" r="4.5" fill="#222"/>
+<line x1="99.0" y1="311.0" x2="99.0" y2="291.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="99" cy="285" r="4.5" fill="#222"/>
+<line x1="143.0" y1="311.0" x2="143.0" y2="291.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="143" cy="285" r="4.5" fill="#222"/>
+<line x1="187.0" y1="311.0" x2="187.0" y2="291.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="187" cy="285" r="4.5" fill="#222"/>
+<line x1="231.0" y1="311.0" x2="231.0" y2="291.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="231" cy="285" r="4.5" fill="#222"/>
+<line x1="275.0" y1="311.0" x2="275.0" y2="291.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="275" cy="285" r="4.5" fill="#222"/>
+<circle cx="125" cy="180" r="14" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<circle cx="215" cy="180" r="14" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<circle cx="80" cy="72" r="12" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<line x1="80.0" y1="60.0" x2="80.0" y2="38.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="140" cy="72" r="12" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<line x1="140.0" y1="60.0" x2="140.0" y2="38.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="200" cy="72" r="12" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<line x1="200.0" y1="60.0" x2="200.0" y2="38.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<circle cx="260" cy="72" r="12" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<line x1="260.0" y1="60.0" x2="260.0" y2="38.0" stroke="#222" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="175.0" y="20.0" text-anchor="middle" fill="#222" font-size="12">Couche de sortie (4 unités)</text>
+<text x="238.0" y="185.0" text-anchor="start" fill="#222" font-size="12">Couche cachée</text>
+<text x="238.0" y="200.0" text-anchor="start" fill="#222" font-size="12">(2 unités)</text>
+<text x="165.0" y="336.0" text-anchor="middle" fill="#222" font-size="12">Couche d'entrée</text>
+</svg>

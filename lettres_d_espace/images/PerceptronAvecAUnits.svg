@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="570" height="392" viewBox="0 0 570 392" font-family="Verdana, Arial, Helvetica, sans-serif" font-size="13">
+<title>Le perceptron de Rosenblatt : rétine, unités A, poids, somme et seuil</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker>
+<marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fbf"/></marker>
+</defs>
+<rect width="570" height="392" fill="#fff"/>
+<polygon points="40,90 122,48 122,318 40,360" fill="#d9f3f6" stroke="#222" stroke-width="1.5"/>
+<line x1="40.0" y1="120.0" x2="122.0" y2="78.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="150.0" x2="122.0" y2="108.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="180.0" x2="122.0" y2="138.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="210.0" x2="122.0" y2="168.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="240.0" x2="122.0" y2="198.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="270.0" x2="122.0" y2="228.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="300.0" x2="122.0" y2="258.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="40.0" y1="330.0" x2="122.0" y2="288.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="60.5" y1="79.5" x2="60.5" y2="349.5" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="81.0" y1="69.0" x2="81.0" y2="339.0" stroke="#7fb9c0" stroke-width="0.6"/>
+<line x1="101.5" y1="58.5" x2="101.5" y2="328.5" stroke="#7fb9c0" stroke-width="0.6"/>
+<circle cx="70" cy="120" r="2.4" fill="#222"/>
+<path d="M 70,120 C 120,120 160,105 199,105" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="98" cy="96" r="2.4" fill="#222"/>
+<path d="M 98,96 C 148,96 160,105 199,105" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="110" cy="160" r="2.4" fill="#222"/>
+<path d="M 110,160 C 160,160 160,105 199,105" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="60" cy="190" r="2.4" fill="#222"/>
+<path d="M 60,190 C 110,190 160,105 199,105" fill="none" stroke="#444" stroke-width="1"/>
+<rect x="199" y="85" width="22" height="40" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<circle cx="80" cy="160" r="2.4" fill="#222"/>
+<path d="M 80,160 C 130,160 160,175 199,175" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="104" cy="210" r="2.4" fill="#222"/>
+<path d="M 104,210 C 154,210 160,175 199,175" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="64" cy="240" r="2.4" fill="#222"/>
+<path d="M 64,240 C 114,240 160,175 199,175" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="114" cy="130" r="2.4" fill="#222"/>
+<path d="M 114,130 C 164,130 160,175 199,175" fill="none" stroke="#444" stroke-width="1"/>
+<rect x="199" y="155" width="22" height="40" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<circle cx="72" cy="290" r="2.4" fill="#222"/>
+<path d="M 72,290 C 122,290 160,290 199,290" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="100" cy="250" r="2.4" fill="#222"/>
+<path d="M 100,250 C 150,250 160,290 199,290" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="58" cy="320" r="2.4" fill="#222"/>
+<path d="M 58,320 C 108,320 160,290 199,290" fill="none" stroke="#444" stroke-width="1"/>
+<circle cx="112" cy="300" r="2.4" fill="#222"/>
+<path d="M 112,300 C 162,300 160,290 199,290" fill="none" stroke="#444" stroke-width="1"/>
+<rect x="199" y="270" width="22" height="40" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<circle cx="210" cy="218" r="2" fill="#222"/><circle cx="300" cy="218" r="2" fill="#222"/>
+<circle cx="210" cy="234" r="2" fill="#222"/><circle cx="300" cy="234" r="2" fill="#222"/>
+<circle cx="210" cy="250" r="2" fill="#222"/><circle cx="300" cy="250" r="2" fill="#222"/>
+<line x1="221.0" y1="105.0" x2="288.0" y2="105.0" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<circle cx="300" cy="105" r="12" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<line x1="292.0" y1="97.0" x2="308.0" y2="113.0" stroke="#222" stroke-width="1.2"/><line x1="292.0" y1="113.0" x2="308.0" y2="97.0" stroke="#222" stroke-width="1.2"/>
+<path d="M 312,105 C 345,105 345,200 370,200" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="221.0" y1="175.0" x2="288.0" y2="175.0" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<circle cx="300" cy="175" r="12" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<line x1="292.0" y1="167.0" x2="308.0" y2="183.0" stroke="#222" stroke-width="1.2"/><line x1="292.0" y1="183.0" x2="308.0" y2="167.0" stroke="#222" stroke-width="1.2"/>
+<path d="M 312,175 C 345,175 345,200 370,200" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<line x1="221.0" y1="290.0" x2="288.0" y2="290.0" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<circle cx="300" cy="290" r="12" fill="#fff" stroke="#222" stroke-width="1.5"/>
+<line x1="292.0" y1="282.0" x2="308.0" y2="298.0" stroke="#222" stroke-width="1.2"/><line x1="292.0" y1="298.0" x2="308.0" y2="282.0" stroke="#222" stroke-width="1.2"/>
+<path d="M 312,290 C 345,290 345,200 370,200" fill="none" stroke="#222" stroke-width="1.3" marker-end="url(#arrow)"/>
+<rect x="372" y="172" width="46" height="56" fill="#eef3fd" stroke="#222" stroke-width="1.6"/>
+<text x="395.0" y="210.0" text-anchor="middle" fill="#222" font-size="26">Σ</text>
+<line x1="418.0" y1="200.0" x2="448.0" y2="200.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="450" y="183" width="66" height="34" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="483.0" y="205.0" text-anchor="middle" fill="#222" font-size="12">seuil</text>
+<line x1="516.0" y1="200.0" x2="560.0" y2="200.0" stroke="#222" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="210.0" y="330.0" text-anchor="middle" fill="#222" font-size="12">unités A</text>
+<text x="300.0" y="330.0" text-anchor="middle" fill="#222" font-size="12">poids</text>
+<text x="395.0" y="248.0" text-anchor="middle" fill="#222" font-size="12">somme</text>
+<text x="81.0" y="380.0" text-anchor="middle" fill="#222" font-size="12">Motif d'entrée (rétine)</text>
+<line x1="200.0" y1="30.0" x2="320.0" y2="30.0" stroke="#222" stroke-width="2.4" marker-end="url(#arrow)"/>
+<text x="260.0" y="50.0" text-anchor="middle" fill="#222" font-size="12">information</text>
+</svg>

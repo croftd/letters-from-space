@@ -56,6 +56,6 @@ Press, 1997), EPFL's *Neural Java* tutorial and Rich and Knight's *Artificial In
 
 ## Licence
 
-The code is under the [MIT licence](LICENSE). The course text and David Croft's own images are under
-[CC BY 4.0](LICENSE-content.md); the figures taken from the sources above are not covered (see
-[LICENSE-content.md](LICENSE-content.md)).
+The code is under the [MIT licence](LICENSE). The course text and the images are under
+[CC BY 4.0](LICENSE-content.md); the figures of the 2001 pages were redrawn in 2026, and passages taken
+from the sources above are not covered (see [LICENSE-content.md](LICENSE-content.md)).
