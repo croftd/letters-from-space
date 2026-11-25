@@ -58,7 +58,6 @@ import lettersfromspace.space.Video;
  * <li>POST /api/scan?letter=A&amp;threshold=0.85</li>
  * <li>GET  /api/message                              the message assembled from all scans</li>
  * <li>POST /api/reset</li>
- * <li>POST /api/visits                               counts a page load (the page's visitor counter; kept in memory)</li>
  * </ul>
  * Downloads, zipped on request (see {@link Downloads}): {@code /downloads/letters-from-space-2026.zip}
  * (this lab and the dashboard) and {@code /downloads/lettres-d-espace-2001.zip} (the 2001 materials,
@@ -74,7 +73,6 @@ public class DashboardServer {
     private final Map<Character, LetterDetector> detectors = new ConcurrentHashMap<>();
     private final Map<Character, List<LetterDetector.Hit>> hits = new ConcurrentHashMap<>();
     private final Map<Character, Double> scanThresholds = new ConcurrentHashMap<>();
-    private final java.util.concurrent.atomic.AtomicLong visits = new java.util.concurrent.atomic.AtomicLong();
 
     public DashboardServer(Path dataDir, Path webDir, Path videoFile) throws IOException {
         this.dataDir = dataDir;
@@ -138,7 +136,6 @@ public class DashboardServer {
                 case "/api/scan" -> scan(p);
                 case "/api/message" -> message();
                 case "/api/reset" -> reset();
-                case "/api/visits" -> Map.of("count", visits.incrementAndGet());
                 default -> null;
             };
             if (result == null) {

@@ -50,7 +50,6 @@ export class BrowserLab {
       case 'scan': return this.scan(p);
       case 'message': return this.message();
       case 'reset': this.detectors.clear(); this.hits.clear(); return { ok: true };
-      case 'visits': throw new Error('No visit counter in the browser');
       default: throw new Error('Unknown API path /api/' + path);
     }
   }

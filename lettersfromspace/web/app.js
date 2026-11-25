@@ -1492,43 +1492,6 @@ async function resetAll() {
   notice('All detectors forgotten.');
 }
 
-// ------------------------------------------------------------------ visitor counter
-
-const ABACUS = 'https://abacus.jasoncameron.dev/';
-
-/**
- * The old-school counter at the top. On a static host it uses the Abacus counter named in the lfs-abacus
- * meta tag (a free counting service, no account): the first page load of a browser session counts a
- * visit (/hit), later loads in the same session only read the total (/get). Served by the lab's Java
- * server without that tag, it shows the server's own count of page loads.
- */
-async function showVisitorCounter(serverAvailable) {
-  const counter = (document.querySelector('meta[name="lfs-abacus"]')?.content || '').trim();
-  let count = null;
-  try {
-    if (counter) {
-      let counted = false;
-      try { counted = sessionStorage.getItem('lfs.counted') === counter; } catch { /* no storage: count this load */ }
-      const name = counter.split('/').map(encodeURIComponent).join('/');
-      const response = await fetch(ABACUS + (counted ? 'get/' : 'hit/') + name);
-      if (response.ok) {
-        count = (await response.json()).value;
-        try { sessionStorage.setItem('lfs.counted', counter); } catch { /* ignore */ }
-      }
-    } else if (serverAvailable) {
-      count = (await api('visits', {}, 'POST')).count;
-    }
-  } catch {
-    count = null;                                         // the counter is decoration: never an error message
-  }
-  if (!Number.isFinite(count)) return;
-  const digits = String(count).padStart(6, '0');
-  $('visit-digits').replaceChildren(...digits.split('').map((d) => el('span', { text: d })));
-  $('visit-text').textContent = 'You are visitor number ' + count.toLocaleString('en-US') + '.';
-  $('visit-counter').title = counter ? 'Visits counted by Abacus, one per browser session' : 'Page loads since this server started';
-  $('visit-counter').classList.remove('hidden');
-}
-
 // ------------------------------------------------------------------ start
 
 let drawEditor;
@@ -1557,15 +1520,12 @@ async function init() {
   } catch (e) {
     if (inBrowser()) {
       notice('The lab could not start in this browser (' + e.message + ').', true);
-      showVisitorCounter(false);
       return;
     }
     notice('The lab needs its small Java server, which is not answering (' + e.message + '). Download the code at the bottom of '
       + 'this page, start run_dashboard.sh or run_dashboard.bat, and open http://localhost:8080/.', true);
-    showVisitorCounter(false);
     return;
   }
-  showVisitorCounter(true);
   state.defaults = status.defaults;
   state.videoSize = status.videoFrames;
   state.trained = status.trained || {};

@@ -63,24 +63,6 @@ p { margin: 0.4em 0; }
 .mono { font-family: var(--mono); }
 .num { font-variant-numeric: tabular-nums; }
 .hidden { display: none !important; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-
-/* an old-school web page counter: odometer digits, as on 2001 home pages */
-.topbar { display: flex; justify-content: flex-end; padding-top: 10px; min-height: 36px; }
-.counter { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
-.counter .digits { display: inline-flex; gap: 2px; padding: 3px; background: #000; border: 1px solid var(--axis); border-radius: 3px; }
-.counter .digits span {
-  display: inline-block;
-  width: 15px;
-  height: 21px;
-  font: 700 15px/21px var(--mono);
-  text-align: center;
-  color: var(--link);
-  border-radius: 2px;
-  /* the split line of a mechanical counter wheel */
-  background: linear-gradient(#1c0d07 0 49%, #000 49% 52%, #120804 52% 100%);
-  text-shadow: 0 0 6px rgba(255, 102, 51, 0.55);
-}
 
 /* ---------------------------------------------------------------- page frame */
 
@@ -100,7 +82,6 @@ header.masthead {
 }
 
 .masthead .subtitle { color: var(--ink-2); max-width: 720px; }
-header.masthead { padding-top: 4px; }
 
 /* the orange Mali landscape strip of the 2001 home page, cropped to the height of the title text */
 .masthead-main { display: flex; gap: 20px; align-items: stretch; }
