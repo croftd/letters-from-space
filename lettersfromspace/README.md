@@ -67,8 +67,11 @@ python3 -m http.server 8000 --directory build/site        # then open http://loc
 ```
 
 `build/site` can be copied as it is to GitHub Pages or any web host. `--url https://example.org/lab/`
-adds the page's address (and a `sitemap.xml`). The page must be served over http(s), not opened as a
-file.
+adds the page's address (and a `sitemap.xml`); `--counter abacus` counts the page's views, without
+showing them on the page, with [Abacus](https://abacus.jasoncameron.dev), a free counting service that
+needs no account (one view per browser session; the counter is named after the address, and its total
+is at `https://abacus.jasoncameron.dev/get/HOST/PATH`). The page must be served over http(s), not
+opened as a file.
 
 ## The dashboard in four steps
 

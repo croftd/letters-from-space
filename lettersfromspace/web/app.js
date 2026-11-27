@@ -1492,6 +1492,37 @@ async function resetAll() {
   notice('All detectors forgotten.');
 }
 
+// ------------------------------------------------------------------ page views
+
+const ABACUS = 'https://abacus.jasoncameron.dev/';
+
+/**
+ * Counts the views of the published page without showing anything on it. When the page carries
+ * <meta name="lfs-abacus" content="NAMESPACE/KEY"> (build_site.sh --counter abacus), the first load of a
+ * browser session adds one to that Abacus counter (a free counting service, no account); the total is
+ * read at https://abacus.jasoncameron.dev/get/NAMESPACE/KEY. Not counted: reloads in the same session,
+ * copies served from this computer, automated browsers (the tests), and browsers that opened the page
+ * once with ?nocount (?count undoes it).
+ */
+function countPageView() {
+  const counter = (document.querySelector('meta[name="lfs-abacus"]')?.content || '').trim();
+  if (!counter || navigator.webdriver || ['localhost', '127.0.0.1', '[::1]', ''].includes(location.hostname)) return;
+  try {
+    const query = new URLSearchParams(location.search);
+    if (query.has('nocount')) localStorage.setItem('lfs.nocount', '1');
+    if (query.has('count')) localStorage.removeItem('lfs.nocount');
+    if (localStorage.getItem('lfs.nocount') || sessionStorage.getItem('lfs.counted') === counter) return;
+  } catch { /* no storage: count this load */ }
+  const name = counter.split('/').map(encodeURIComponent).join('/');
+  fetch(ABACUS + 'hit/' + name, { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' })
+    .then((response) => {
+      if (response.ok) {
+        try { sessionStorage.setItem('lfs.counted', counter); } catch { /* ignore */ }
+      }
+    })
+    .catch(() => { /* counting never shows an error */ });
+}
+
 // ------------------------------------------------------------------ start
 
 let drawEditor;
@@ -1513,6 +1544,7 @@ async function startBrowserLab() {
 }
 
 async function init() {
+  countPageView();
   let status;
   try {
     await startBrowserLab();

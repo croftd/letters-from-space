@@ -15,10 +15,12 @@ import java.util.stream.Stream;
  * downloads as ready-made zips. Nothing in it needs a server.
  * <pre>
  * java -cp build/classes lettersfromspace.web.SiteBuilder [--out build/site]
- *      [--url https://r2do.com/lettersfromspace/]
+ *      [--url https://r2do.com/lettersfromspace/] [--counter abacus | --counter abacus:NAMESPACE/KEY]
  * </pre>
  * Run it from the lab folder (the one holding web/ and data/). {@code --url} adds the canonical address
- * and a sitemap.xml. Copy the output folder to the web
+ * and a sitemap.xml. {@code --counter abacus} counts the page's views, without showing them on the page,
+ * with an Abacus counter (https://abacus.jasoncameron.dev, free, no account) named after the address:
+ * r2do.com/lettersfromspace for https://r2do.com/lettersfromspace/. Copy the output folder to the web
  * site, for example into a {@code lettersfromspace/} folder of the repository that serves r2do.com.
  */
 public final class SiteBuilder {
@@ -31,16 +33,19 @@ public final class SiteBuilder {
         Path labRoot = Path.of("").toAbsolutePath().normalize();
         Path out = labRoot.resolve("build/site");
         String url = null;
+        String counter = null;
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
                 case "--out" -> out = Path.of(args[++i]).toAbsolutePath().normalize();
                 case "--url" -> url = args[++i].endsWith("/") ? args[i] : args[i] + "/";
+                case "--counter" -> counter = args[++i];
                 default -> {
                     System.err.println("Unknown option " + args[i]);
                     System.exit(2);
                 }
             }
         }
+        String abacus = counter == null ? null : abacusName(counter, url);
         Path web = labRoot.resolve("web");
         Path data = labRoot.resolve("data");
         if (!Files.isDirectory(web) || !Files.isDirectory(data)) {
@@ -55,7 +60,7 @@ public final class SiteBuilder {
                 Path target = out.resolve(web.relativize(file).toString());
                 Files.createDirectories(target.getParent());
                 if (file.getFileName().toString().equals("index.html")) {
-                    Files.writeString(target, page(Files.readString(file, StandardCharsets.UTF_8), url), StandardCharsets.UTF_8);
+                    Files.writeString(target, page(Files.readString(file, StandardCharsets.UTF_8), url, abacus), StandardCharsets.UTF_8);
                 } else {
                     Files.copy(file, target);
                 }
@@ -96,18 +101,56 @@ public final class SiteBuilder {
                 count++;
             }
         }
-        System.out.printf("Built the static site in %s: %d files, %.1f MB%s%n", out, count, total / 1e6,
-                url == null ? "" : " (canonical address " + url + ")");
+        System.out.printf("Built the static site in %s: %d files, %.1f MB%s%s%n", out, count, total / 1e6,
+                url == null ? "" : " (canonical address " + url + ")", abacus == null ? "" : ", page views counted at abacus:" + abacus);
     }
 
-    /** The page with the lab switched to the browser, plus the canonical address when given. */
-    static String page(String html, String url) {
+    /** The page with the lab switched to the browser, plus the canonical address and the counter when given. */
+    static String page(String html, String url, String abacus) {
         String engine = "  <meta name=\"lfs-engine\" content=\"browser\">\n";
         if (url != null) {
             engine += "  <link rel=\"canonical\" href=\"" + url + "\">\n";
         }
         html = html.replace("</head>", engine + "</head>");
+        if (abacus != null) {
+            String empty = "<meta name=\"lfs-abacus\" content=\"\">";
+            if (!html.contains(empty)) {
+                fail("web/index.html has no " + empty + " for --counter to fill in.");
+            }
+            html = html.replace(empty, "<meta name=\"lfs-abacus\" content=\"" + abacus + "\">");
+        }
         return html;
+    }
+
+    /**
+     * The Abacus counter of {@code --counter}: "abacus:NAMESPACE/KEY" as given, or for plain "abacus" the
+     * host of {@code --url} and its path ("r2do.com/lettersfromspace"). Abacus accepts 3 to 64 letters,
+     * digits, '_', '-' and '.' for each part.
+     */
+    static String abacusName(String option, String url) {
+        String name = null;
+        if (option.startsWith("abacus:")) {
+            name = option.substring("abacus:".length());
+        } else if (option.equals("abacus")) {
+            if (url == null) {
+                fail("--counter abacus names the counter after --url: give --url too, or --counter abacus:NAMESPACE/KEY");
+            }
+            java.net.URI address = java.net.URI.create(url);
+            String path = address.getPath().replaceAll("^/+|/+$", "").replace('/', '-');
+            name = address.getHost() + "/" + (path.isEmpty() ? "home" : path);
+        } else {
+            fail("--counter must be abacus or abacus:NAMESPACE/KEY");
+        }
+        String[] parts = name.split("/", -1);
+        if (parts.length != 2 || !parts[0].matches("[A-Za-z0-9_.-]{3,64}") || !parts[1].matches("[A-Za-z0-9_.-]{3,64}")) {
+            fail("Not a valid Abacus counter name: " + name + " (NAMESPACE/KEY, each 3 to 64 letters, digits, _ - .)");
+        }
+        return name;
+    }
+
+    private static void fail(String message) {
+        System.err.println(message);
+        System.exit(2);
     }
 
     /** Empties the output folder, refusing any non-empty folder that this tool did not create. */
